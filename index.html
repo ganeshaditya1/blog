@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app = "personalSite">
+<head>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="	sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Font awesome -->
+	<script src="https://use.fontawesome.com/4524257e73.js"></script>
+	<!-- Angular.js -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+	<title>Aditya Ambadipudi's Homepage</title>
+	<style type="text/css">
+		.img-circle {
+    		border-radius: 50%;
+		}
+		.sidebar-links {
+			font-weight: bold;
+		}
+		.main {
+			padding: 25px;
+			width: 800px;
+		}
+		.sidebar-icons {
+			color: grey;
+		}
+		.active {
+			font-size: 17px;
+			text-decoration: underline;
+		}
+		.tg  {border-collapse:collapse;border-spacing:0;}
+		.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+		.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+		.tg .tg-yw4l{vertical-align:top}
+	</style>
+	<script type="text/javascript">
+		function ab(){
+			alert("Asd");
+		}
+		var app = angular.module('personalSite', []);
+		app.controller('MainCtrl', function($scope) {
+			$scope.selectedTab = 1;
+		});	
+	</script>
+</head>
+<body ng-controller = "MainCtrl">
+</br></br></br>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-2">
+  	<img src = "https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/13528727_1716992858560521_3949140473945714245_n.jpg?oh=feab05b03735ed717844dd1cc6553e25&oe=587F3F56" height = "150px" width="150px" class = "img-circle">
+  	<H1> Aditya</br>Ambadipudi</H1></br></br>
+  	
+	<hr><a href = "#" class = "sidebar-links" ng-class="{'active':selectedTab === 1}" ng-click = "selectedTab = 1">About me</a></br><hr>
+	<a href = "#" class = "sidebar-links" ng-class="{'active':selectedTab === 2}" ng-click = "selectedTab = 2">Teaching schedules and stuff</a><hr>
+  	<a href = "https://github.com/ganeshaditya1" class = "sidebar-icons"><i class = "fa fa-github fa-2x" aria-hidden="true"></i></a> &nbsp;
+  	<a href = "https://www.linkedin.com/in/sastryaditya" class = "sidebar-icons"><i class = "fa fa-linkedin fa-2x" aria-hidden="true"></i></a>
+  	</br>
+  </div>
+  <div class="col-md-8">
+  <div class = "main" ng-show = "selectedTab === 1">
+  	<h2>About me</h2><hr></br>
+  	<p>
+  	My name is Aditya Ambadipudi. I am from Hyderabad, India. I did my undergraduation in Computer Science and engineering from GITAM University. Currently I am doing a Masters in computer science here at Rutgers. If all goes well, I will be graduating by summer of 2017.
+  	</p>
+  	<p> I am interested in Artificial intelligence, computer vision, robotics and that kind of stuff. Last summer I interned at Meryl Lynch, Bank of America, settlements and asset services team. </p>
+  	<p>
+  	 I also contribute extensively to open source projects. Back when Php was a big thing, I wrote a bunch of features and bug fixes for Wikipedia and Phpmyadmin. You can check them out by going to my github account.</p>
+  </div>
+  <div class = "main" ng-show = "selectedTab === 2">
+  	<h2>Teaching schedule</h2><hr></br>
+  	I am currently a TA for CS-170 section 19 and 24. Given below are the various timings and locations information for my sections. </br></br>
+  	<table class="tg">
+  <tr>
+    <th class="tg-yw4l"></th>
+    <th class="tg-yw4l">Timings</th>
+    <th class="tg-yw4l">Location</th>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Recitation-1, section 19</td>
+    <td class="tg-yw4l">Tuesday, 5:15 - 6:10 PM</td>
+    <td class="tg-yw4l">Room:116, Alison road class room, Busch campus</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Recitation-2, section 24</td>
+    <td class="tg-yw4l">Tuesday, 8:25 - 9:20 PM</td>
+    <td class="tg-yw4l">Room:116, Alison road class room, Busch campus</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Lab support hours</td>
+    <td class="tg-yw4l">Wednesday, 10 AM - 12 PM</td>
+    <td class="tg-yw4l">Tillet hall, Livingston campus</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Office hours</td>
+    <td class="tg-yw4l">Friday, 2:00 PM - 3:00 PM</td>
+    <td class="tg-yw4l">Room:378, Hill center, Busch campus</td>
+  </tr>
+</table>
+
+  </div>
+  </div>
+</div></br></br>
+</body>
+</html>
