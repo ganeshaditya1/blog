@@ -1,5 +1,3 @@
-
-const fs = require('fs');
 import Post from '@/components/post';
 import { getSlugsFromDirectory, getPostFromMdxFile } from '@/app/mdxUtil';
 

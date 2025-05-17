@@ -1,15 +1,6 @@
 import { Post as PostData } from './types/Post';
 
-function wrapContent(Content) {
-    if (Content instanceof String) {
-        return <div>Content</div>;
-    } else {
-        return Content;
-    }
-}
-
 export default function Post({ postData }: { postData: PostData }) {
-    const ContentElem = wrapContent(postData.Content);
     return <div>
             <div className="flow-root">
                 <h1 className="float-left">{ postData.title }</h1>
@@ -17,9 +8,9 @@ export default function Post({ postData }: { postData: PostData }) {
             </div>
             <div className="flex flex-row gap-5 mb-[20px]">
             {postData.tags.map((tag: string) => (            
-                <span className="bg-red-100 p-[6px]">{tag}</span>
+                <span className="bg-red-100 p-[6px]" key={tag}>{tag}</span>
             ))}
             </div>
-            <ContentElem />
+            <div>{postData.Content}</div>
         </div>;
 }

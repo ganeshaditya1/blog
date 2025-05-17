@@ -1,12 +1,14 @@
+import { JSX } from "react";
+
 export class Post {
     private readonly _title: string;
     private readonly _createdAt: Date;
     private readonly _tags: string[];
     private readonly _synopsis: string;
-    private readonly _Content: React.Component;
+    private readonly _Content: JSX.Element;
 
     constructor(title: string, createdAt: Date, tags: string[], 
-                synopsis: string, Content: React.Component) {
+                synopsis: string, Content: JSX.Element) {
         this._title = title;
         this._createdAt = createdAt;
         this._tags = tags;
@@ -30,7 +32,7 @@ export class Post {
         return this._synopsis;
     }
 
-    get Content(): React.Component {
+    get Content(): JSX.Element {
         return this._Content;
     }
 };
