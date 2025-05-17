@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Head from "next/head";
 import "./globals.css";
 import "@wooorm/starry-night/style/tritanopia-light";
 import 'katex/dist/katex.min.css';
