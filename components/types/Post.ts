@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { JSX } from "react";
 
 export class Post {
@@ -46,5 +47,9 @@ export class Post {
 
     get Content(): JSX.Element {
         return this._Content;
+    }
+    
+    get prettyCreationDate(): string {
+        return format(this._createdAt, "MMMM do, yyyy");
     }
 };

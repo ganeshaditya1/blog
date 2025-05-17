@@ -7,7 +7,7 @@ export default function PostSynopsis({ post }: { post: Post }) {
                 <h1 className="float-left">
                     <Link href={`/posts/${post.slug}`}>{ post.title }</Link>
                 </h1>
-                <h2 className="float-right">{ post.createdAt.toString() }</h2>
+                <h2 className="float-right">{ post.prettyCreationDate }</h2>
             </div>
             <div className="flex flex-row gap-5 mb-[20px]">
             {post.tags.map((tag: string) => (            
@@ -17,5 +17,3 @@ export default function PostSynopsis({ post }: { post: Post }) {
             <div>{post.synopsis}</div>
         </div>;
 }
-
-// <Link href={`/posts/${post.slug}`}>{ post.title }</Link>
