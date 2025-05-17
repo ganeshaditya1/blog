@@ -1,7 +1,6 @@
 import { Post as PostData } from './types/Post';
 
 export default function Post({ postData }: { postData: PostData }) {
-    console.log(postData.prettyCreationDate);
     return <div>
             <div className="flow-root">
                 <h1 className="float-left">{ postData.title }</h1>
