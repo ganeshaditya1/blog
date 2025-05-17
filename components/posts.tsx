@@ -6,7 +6,7 @@ export default function Posts( { posts }: { posts: Array<Post> } ) {
         .filter((post) => post.published)
         .sort((post1, post2) => post2.createdAt.getTime() - post1.createdAt.getTime())
         .map((post) => < PostSynopsis post={ post } key={ post.title} />);
-    return (<div>
+    return (<div className="mt-[30px]">
         {postSynopsises}
     </div>);
 }

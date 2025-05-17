@@ -3,17 +3,15 @@ import { Post } from './types/Post';
 
 export default function PostSynopsis({ post }: { post: Post }) {
     return <div className="mb-[20px]">
-            <div className="flow-root">
-                <h1 className="float-left">
-                    <Link href={`/posts/${post.slug}`}>{ post.title }</Link>
-                </h1>
-                <h2 className="float-right">{ post.prettyCreationDate }</h2>
+            <h2 className="font-thin text-sm underline underline-offset-4 decoration-gray-100 text-gray-600">{ post.prettyCreationDate }</h2>
+            <h1 className="mb-[10px]">
+                <Link href={`posts/${post.slug}`}>{ post.title }</Link>
+            </h1>
+            <div className="flex flex-row gap-3 mb-[20px]">
+                {post.tags.map((tag: string) => (            
+                    <span className="bg-neutral-100 p-[1px] pl-[6px] pr-[6px]" key={tag}>{tag}</span>
+                ))}
             </div>
-            <div className="flex flex-row gap-5 mb-[20px]">
-            {post.tags.map((tag: string) => (            
-                <span className="bg-red-100 p-[6px]" key={tag}>{tag}</span>
-            ))}
-            </div>
-            <div>{post.synopsis}</div>
+            <div className="mb-[50px] pb-[20px] ">{post.synopsis}</div>
         </div>;
 }

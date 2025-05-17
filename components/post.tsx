@@ -1,14 +1,12 @@
 import { Post as PostData } from './types/Post';
 
 export default function Post({ postData }: { postData: PostData }) {
-    return <div>
-            <div className="flow-root">
-                <h1 className="float-left">{ postData.title }</h1>
-                <h2 className="float-right">{ postData.prettyCreationDate }</h2>
-            </div>
-            <div className="flex flex-row gap-5 mb-[20px]">
+    return <div>            
+            <h2 className="font-thin text-sm underline underline-offset-4 decoration-gray-100 text-gray-600">{ postData.prettyCreationDate }</h2>
+            <h1 className="mb-[10px]">{ postData.title }</h1>
+            <div className="flex flex-row gap-3 mb-[40px]">
             {postData.tags.map((tag: string) => (            
-                <span className="bg-red-100 p-[6px]" key={tag}>{tag}</span>
+                <span className="bg-neutral-100 p-[1px] pl-[6px] pr-[6px]" key={tag}>{tag}</span>
             ))}
             </div>
             <div>{postData.Content}</div>

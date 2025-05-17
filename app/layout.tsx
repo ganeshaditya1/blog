@@ -17,20 +17,26 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="flex flex-row justify-center m-[50px]">
-          <div className="w-[50%] shrink-0">
-            <h1 className="font-sans font-thin text-7xl text-center">ADITYA AMBADIPUDI</h1>
-            <div className="flex gap-10 justify-center text-2xl m-[30px] my-0.25  border-dotted border-b-2 pb-[30px]">
-              <a href="#">All posts</a> ★
-              <a href="#">About me</a> ★
-              <a href="#">Socials</a>
+        <div className="flex flex-row justify-center m-[10px]">
+          <div className="w-[60%]">
+            <div className="flex flex-row justify-between border-b border-gray-200 pl-[35px] pr-[35px] p-[5px] mb-[10px]">
+              <h1 className="font-mono font-bold text-xl text-left">Aditya Ambadipudi</h1>
+              <div className="flex text-base space-x-6 text-gray-600">
+                  <a href="#">All posts</a> 
+                  <a href="#">Interesting papers/articles</a> 
+                  <a href="#">Book reports</a>
+                  <a href="#">Chess Puzzles</a>
+              </div>
             </div>
-            <div className="p-[20px]">
-            {children}
+            
+            <div className="p-[20px] pl-[35px] pr-[35px] ">
+              {children}
             </div>
           </div>
+
           <div className="shrink-0 w-[10%] bg-red-50 h-600 shrink-0 hidden">AD</div>
         </div>
+        
         
       </body>
     </html>
