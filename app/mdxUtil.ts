@@ -19,6 +19,7 @@ export async function getPostFromMdxFile(filename: string): Promise<Post> {
                     metadata.createdAt, 
                     metadata.tags.split(','), 
                     metadata.published,
+                    filename,
                     metadata.synopsis, 
                     Content());
 }
