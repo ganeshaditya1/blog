@@ -13,7 +13,7 @@ export class Post {
     constructor(title: string, createdAt: Date, tags: string[], published: boolean,
                 slug: string, synopsis: string, Content: JSX.Element) {
         this._title = title;
-        this._createdAt = createdAt;
+        this._createdAt = new Date(createdAt);
         this._tags = tags;
         this._published = published;
         this._slug = slug;
