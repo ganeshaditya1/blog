@@ -1,13 +1,15 @@
-import Posts from '@/components/posts/posts';
-import { getSlugsFromDirectory, getPostFromMdxFile } from '@/app/mdxUtil';
+import { getAboutMeFromMdxFile } from '@/app/mdxUtil';
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About me",
+  description: "Aditya Ambadipudi about me page, detailing my career journey so far.",
+};
 
 export default async function Page({}) {
-    const slugs = (await getSlugsFromDirectory('content/posts'))
-      .map((slug) => slug.slug);
-
-    const postPromises = slugs.map((slug) => getPostFromMdxFile(slug));
-    return Promise.all(postPromises)
-                  .then((posts) => (< Posts posts={ posts } />));
+    return <>
+      {getAboutMeFromMdxFile()}
+    </>
   }
    
   export const dynamicParams = false

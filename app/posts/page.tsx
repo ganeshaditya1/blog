@@ -3,8 +3,8 @@ import Posts from '@/components/posts/posts';
 import { getSlugsFromDirectory, getPostFromMdxFile } from '@/app/mdxUtil';
 
 export const metadata: Metadata = {
-  title: "About me",
-  description: "Aditya Ambadipudi about me page, detailing my career journey so far.",
+  title: "All the posts",
+  description: "Synopsises of all the technical posts I wrote on this blog so far.",
 };
 
 export default async function Page({}) {

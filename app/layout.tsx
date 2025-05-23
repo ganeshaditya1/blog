@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from 'next/link';
 import "./globals.css";
 import "@wooorm/starry-night/style/tritanopia-light";
 import 'katex/dist/katex.min.css';
@@ -19,7 +20,8 @@ export default function RootLayout({
         <div className="flex flex-row justify-center m-[10px]">
           <div className="w-[60%]">
             <div className="flex flex-row justify-between border-b border-gray-200 pl-[35px] pr-[35px] p-[5px] mb-[10px]">
-              <h1 className="font-mono font-bold text-xl text-left">Aditya Ambadipudi</h1>
+              <h1 className="font-mono font-bold text-xl text-left">
+                <Link href="/">Aditya Ambadipudi</Link></h1>
               <div className="flex text-base space-x-6 text-gray-600">
                   <a href="/posts">All posts</a> 
                   <a href="/interestingLinks">Interesting papers/articles</a> 

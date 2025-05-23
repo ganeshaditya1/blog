@@ -1,6 +1,7 @@
 import fs from 'fs';
-import { Post } from '@/models/Post';
 import { InterestingLink } from '@/models/InterestingLink';
+import { JSX } from "react";
+import { Post } from '@/models/Post';
 
 export async function getSlugsFromDirectory(dirname: string): Promise<Array<{ slug: string }>> {
     "use server";
@@ -36,4 +37,11 @@ export async function getInterestingLinksFromMdxFile(filename: string): Promise<
                     filename,
                     metadata.url, 
                     Content());
+}
+
+export async function getAboutMeFromMdxFile(): Promise<JSX.Element> {
+    "use server";
+    const { default: Content } = await import('@/content/aboutMe.mdx');
+    
+    return Content({});
 }
