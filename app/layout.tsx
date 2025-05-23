@@ -21,10 +21,10 @@ export default function RootLayout({
             <div className="flex flex-row justify-between border-b border-gray-200 pl-[35px] pr-[35px] p-[5px] mb-[10px]">
               <h1 className="font-mono font-bold text-xl text-left">Aditya Ambadipudi</h1>
               <div className="flex text-base space-x-6 text-gray-600">
-                  <a href="#">All posts</a> 
-                  <a href="#">Interesting papers/articles</a> 
-                  <a href="#">Book reports</a>
-                  <a href="#">Chess puzzles</a>
+                  <a href="/posts">All posts</a> 
+                  <a href="/interestingLinks">Interesting papers/articles</a> 
+                  <a href="/bookReports">Book reports</a>
+                  <a href="/chessPuzzles">Chess puzzles</a>
               </div>
             </div>
             

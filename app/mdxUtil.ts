@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { Post } from '@/components/types/Post';
+import { InterestingLink } from '@/components/types/InterestingLink';
 
 export async function getSlugsFromDirectory(dirname: string): Promise<Array<{ slug: string }>> {
     "use server";
@@ -21,5 +22,18 @@ export async function getPostFromMdxFile(filename: string): Promise<Post> {
                     metadata.published,
                     filename,
                     metadata.synopsis, 
+                    Content());
+}
+
+export async function getInterestingLinksFromMdxFile(filename: string): Promise<InterestingLink> {
+    "use server";
+    const { default: Content, frontmatter: metadata } = await import(`@/content/interestingLinks/${filename}.mdx`);
+    
+    return new InterestingLink(metadata.title,
+                    metadata.createdAt, 
+                    metadata.tags.split(','), 
+                    metadata.published,
+                    filename,
+                    metadata.url, 
                     Content());
 }
