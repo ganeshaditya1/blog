@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { ChessPuzzle } from '@/models/ChessPuzzle';
 import { InterestingLink } from '@/models/InterestingLink';
 import { JSX } from "react";
 import { Post } from '@/models/Post';
@@ -37,6 +38,21 @@ export async function getInterestingLinksFromMdxFile(filename: string): Promise<
                     filename,
                     metadata.url, 
                     Content());
+}
+
+export async function getChessPuzzleFromMdxFile(filename: string): Promise<ChessPuzzle> {
+    "use server";
+    const { default: _, frontmatter: metadata } = await import(`@/content/chessPuzzles/${filename}.mdx`);
+    
+    return new ChessPuzzle(metadata.createdAt,
+        metadata.difficulty,
+        metadata.tags,
+        metadata.published,
+        filename,
+        metadata.hint1,
+        metadata.hint2,
+        metadata.hint3,
+        metadata.solution);
 }
 
 export async function getAboutMeFromMdxFile(): Promise<JSX.Element> {
