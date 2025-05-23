@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { Post } from '@/components/types/Post';
-import { InterestingLink } from '@/components/types/InterestingLink';
+import { Post } from '@/models/Post';
+import { InterestingLink } from '@/models/InterestingLink';
 
 export async function getSlugsFromDirectory(dirname: string): Promise<Array<{ slug: string }>> {
     "use server";

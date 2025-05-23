@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Post } from '../types/Post';
+import { Post } from '@/models/Post';
 
 export default function PostSynopsis({ post }: { post: Post }) {
     return <div className="mb-[20px]">

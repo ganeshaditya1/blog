@@ -1,4 +1,4 @@
-import { Post } from '../types/Post';
+import { Post } from '@/models/Post';
 import PostSynopsis from './postSynopsis';
 
 export default function Posts( { posts }: { posts: Array<Post> } ) {

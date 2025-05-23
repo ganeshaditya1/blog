@@ -1,4 +1,4 @@
-import { InterestingLink as ILink} from '../types/InterestingLink';
+import { InterestingLink as ILink} from '@/models/InterestingLink';
 
 export default function InterestingLink({ iLink }: { iLink: ILink }) {
     return <div className="mb-[20px]">

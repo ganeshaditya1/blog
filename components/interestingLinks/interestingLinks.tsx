@@ -1,4 +1,4 @@
-import { InterestingLink as ILink } from '../types/InterestingLink';
+import { InterestingLink as ILink } from '@/models/InterestingLink';
 import InterestingLink from './interestingLink';
 
 export default function InterestingLinks( { iLinks }: { iLinks: Array<ILink> } ) {
