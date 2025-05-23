@@ -1,8 +1,8 @@
-import Posts from '@/components/posts';
+import Posts from '@/components/posts/posts';
 import { getSlugsFromDirectory, getPostFromMdxFile } from '@/app/mdxUtil';
 
 export default async function Page({}) {
-    const slugs = (await getSlugsFromDirectory('posts'))
+    const slugs = (await getSlugsFromDirectory('content/posts'))
       .map((slug) => slug.slug);
 
     const postPromises = slugs.map((slug) => getPostFromMdxFile(slug));

@@ -1,4 +1,4 @@
-import Post from '@/components/post';
+import Post from '@/components/posts/post';
 import type { Metadata } from 'next';
 import { getSlugsFromDirectory, getPostFromMdxFile } from '@/app/mdxUtil';
 
@@ -27,6 +27,6 @@ export default async function Page({ params }: {
     return <Post postData={ post }  />
   }
    
-  export const generateStaticParams = () => getSlugsFromDirectory('posts');
+  export const generateStaticParams = () => getSlugsFromDirectory('content/posts');
    
   export const dynamicParams = false

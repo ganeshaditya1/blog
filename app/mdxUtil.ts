@@ -13,7 +13,7 @@ export async function getSlugsFromDirectory(dirname: string): Promise<Array<{ sl
 
 export async function getPostFromMdxFile(filename: string): Promise<Post> {
     "use server";
-    const { default: Content, frontmatter: metadata } = await import(`@/posts/${filename}.mdx`);
+    const { default: Content, frontmatter: metadata } = await import(`@/content/posts/${filename}.mdx`);
     
     return new Post(metadata.title,
                     metadata.createdAt, 

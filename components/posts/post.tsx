@@ -1,4 +1,4 @@
-import { Post as PostData } from './types/Post';
+import { Post as PostData } from '../types/Post';
 
 export default function Post({ postData }: { postData: PostData }) {
     return <div>            

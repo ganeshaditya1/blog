@@ -24,7 +24,7 @@ export default function RootLayout({
                   <a href="#">All posts</a> 
                   <a href="#">Interesting papers/articles</a> 
                   <a href="#">Book reports</a>
-                  <a href="#">Chess Puzzles</a>
+                  <a href="#">Chess puzzles</a>
               </div>
             </div>
             
