@@ -23,10 +23,10 @@ export default function RootLayout({
               <h1 className="font-mono font-bold text-xl text-left">
                 <Link href="/">Aditya Ambadipudi</Link></h1>
               <div className="flex text-base space-x-6 text-gray-600">
-                  <a href="/posts">All posts</a> 
-                  <a href="/interestingLinks">Interesting papers/articles</a> 
-                  <a href="/bookReports">Book reports</a>
-                  <a href="/chessPuzzles">Chess puzzles</a>
+                  <Link href="/posts">All posts</Link> 
+                  <Link href="/interestingLinks">Interesting papers/articles</Link> 
+                  <Link href="/bookReports">Book reports</Link>
+                  <Link href="/chessPuzzles">Chess puzzles</Link>
               </div>
             </div>
             

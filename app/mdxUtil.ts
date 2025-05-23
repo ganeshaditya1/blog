@@ -42,7 +42,7 @@ export async function getInterestingLinksFromMdxFile(filename: string): Promise<
 
 export async function getChessPuzzleFromMdxFile(filename: string): Promise<ChessPuzzle> {
     "use server";
-    const { default: _, frontmatter: metadata } = await import(`@/content/chessPuzzles/${filename}.mdx`);
+    const { frontmatter: metadata } = await import(`@/content/chessPuzzles/${filename}.mdx`);
     
     return new ChessPuzzle(metadata.createdAt,
         metadata.difficulty,
