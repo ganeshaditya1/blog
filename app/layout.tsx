@@ -3,6 +3,7 @@ import Link from 'next/link';
 import "./globals.css";
 import "@wooorm/starry-night/style/tritanopia-light";
 import 'katex/dist/katex.min.css';
+import HamburgerMenu from "@/components/hamburgerMenu";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,11 +19,15 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className="flex flex-row justify-center m-[10px]">
-          <div className="w-[60%]">
-            <div className="flex flex-row justify-between border-b border-gray-200 pl-[35px] pr-[35px] p-[5px] mb-[10px]">
-              <h1 className="font-mono font-bold text-xl text-left">
-                <Link href="/">Aditya Ambadipudi</Link></h1>
-              <div className="flex text-base space-x-6 text-gray-600">
+          <div className="xl:w-[70%] 2xl:w-[60%] w-[90%]">
+            <div className="flex flex-row justify-between border-b border-gray-200 xl:pl-[35px] pr-[35px] p-[5px]">
+              <div className="flex flex-row">
+                <HamburgerMenu/>
+                <h1 className="whitespace-nowrap font-mono font-bold text-xl text-left inline xl:ml-[1px] ml-[10px]">
+                  <Link href="/">Aditya Ambadipudi</Link>
+                </h1>
+              </div>
+              <div className="whitespace-nowrap flex text-base space-x-6 text-gray-600 hidden xl:block">
                   <Link href="/posts">All posts</Link> 
                   <Link href="/interestingLinks">Interesting papers/articles</Link> 
                   <Link href="/bookReports">Book reports</Link>
@@ -30,7 +35,8 @@ export default function RootLayout({
               </div>
             </div>
             
-            <div className="p-[20px] pl-[35px] pr-[35px] ">
+            <div className="xl:p-[20px] xl:pl-[35px] xl:pr-[35px] pt-[20px]">
+              
               {children}
             </div>
           </div>

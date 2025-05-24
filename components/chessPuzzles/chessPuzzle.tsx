@@ -9,7 +9,7 @@ export default function ChessPuzzle({ puzzle }: { puzzle: Puzzle }) {
         Hard: 'text-red-500',
     };
     return <div className="mb-[20px]">
-            <div className="w-[400px] mb-[20px]">
+            <div className="xl:w-[400px] w-[300px] mb-[20px]">
             <Image src={`/chessPuzzles/${puzzle.slug}.png`} alt="Chess puzzle image" layout="responsive" height={ 200 } width={ 200 } />
             </div>
             <p className={classMap[puzzle.difficulty] || 'text-black'}>{puzzle.difficulty}</p>
