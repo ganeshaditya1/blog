@@ -21,7 +21,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <a className="underline" href={href}>{children}</a>
     ),
     p: ({ children }) => (
-      <p style={{ wordSpacing: '0.15em', lineHeight: '1.65em' }}> {children} </p>
+      <p style={{ wordSpacing: '0.07em', lineHeight: '1.5em' }}> {children} </p>
     ),
     ...components,
   }
