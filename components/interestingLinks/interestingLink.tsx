@@ -1,4 +1,5 @@
 import { InterestingLink as ILink} from '@/models/InterestingLink';
+import Tag from '../tag';
 
 export default function InterestingLink({ iLink }: { iLink: ILink }) {
     return <div className="mb-[20px]">
@@ -8,7 +9,7 @@ export default function InterestingLink({ iLink }: { iLink: ILink }) {
             </h1>
             <div className="flex flex-row gap-3 mb-[20px]">
                 {iLink.tags.map((tag: string) => (            
-                    <span className="bg-neutral-100 p-[1px] pl-[6px] pr-[6px]" key={tag}>{tag}</span>
+                    <Tag tagText={tag} key={tag} />
                 ))}
             </div>
             <div className="mb-[30px] pb-[20px] ">{iLink.Content}</div>

@@ -1,4 +1,5 @@
 import { Post as PostData } from '@/models/Post';
+import Tag from '../tag';
 
 export default function Post({ postData }: { postData: PostData }) {
     return <div>            
@@ -6,7 +7,7 @@ export default function Post({ postData }: { postData: PostData }) {
             <h1 className="mb-[10px]">{ postData.title }</h1>
             <div className="flex flex-row gap-3 mb-[40px]">
             {postData.tags.map((tag: string) => (            
-                <span className="bg-neutral-100 p-[1px] pl-[6px] pr-[6px]" key={tag}>{tag}</span>
+                <Tag tagText={tag} key={tag} />
             ))}
             </div>
             <div>{postData.Content}</div>
