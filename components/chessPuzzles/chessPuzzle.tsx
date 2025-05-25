@@ -8,7 +8,7 @@ export default function ChessPuzzle({ puzzle }: { puzzle: Puzzle }) {
         Medium: 'text-orange-500', 
         Hard: 'text-red-500',
     };
-    return <div className="mb-[20px]">
+    return <div className="mb-[50px]">
             <h1 className="mb-[10px]">{ puzzle.title }</h1>    
             <div className="xl:w-[400px] w-[300px] mb-[20px]">            
                 <Image src={`/chessPuzzles/${puzzle.slug}.png`} alt="Chess puzzle image" layout="responsive" height={ 200 } width={ 200 } />

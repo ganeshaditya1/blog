@@ -11,6 +11,6 @@ export default function InterestingLink({ iLink }: { iLink: ILink }) {
                     <span className="bg-neutral-100 p-[1px] pl-[6px] pr-[6px]" key={tag}>{tag}</span>
                 ))}
             </div>
-            <div className="mb-[50px] pb-[20px] ">{iLink.Content}</div>
+            <div className="mb-[30px] pb-[20px] ">{iLink.Content}</div>
         </div>;
 }
