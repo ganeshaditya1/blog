@@ -44,7 +44,8 @@ export async function getChessPuzzleFromMdxFile(filename: string): Promise<Chess
     "use server";
     const { frontmatter: metadata } = await import(`@/content/chessPuzzles/${filename}.mdx`);
     
-    return new ChessPuzzle(metadata.createdAt,
+    return new ChessPuzzle(metadata.title,
+        metadata.createdAt,
         metadata.difficulty,
         metadata.tags,
         metadata.published,

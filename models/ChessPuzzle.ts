@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 type Difficulty = "Easy" | "Medium" | "Hard";
 
 export class ChessPuzzle {
+    private readonly _title: string;
     private readonly _createdAt: Date;
     private readonly _difficulty: Difficulty;
     private readonly _tags: string[];
@@ -14,8 +15,10 @@ export class ChessPuzzle {
     private readonly _solution: string;
 
 
-    constructor(createdAt: Date, difficulty: Difficulty, tags: string[], published: boolean,
-                slug: string, hint1: string, hint2: string, hint3: string, solution: string) {
+    constructor(title: string, createdAt: Date, difficulty: Difficulty, tags: string[], 
+        published: boolean, slug: string, hint1: string, hint2: string, hint3: string, 
+        solution: string) {
+        this._title = title;
         this._createdAt = new Date(createdAt);
         this._difficulty = difficulty;
         this._tags = tags;
@@ -25,6 +28,10 @@ export class ChessPuzzle {
         this._hint2 = hint2;
         this._hint3 = hint3;
         this._solution = solution;
+    }
+
+    get title(): string {
+        return this._title;
     }
 
     get createdAt(): Date {
