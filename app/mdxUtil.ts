@@ -8,6 +8,8 @@ export async function getSlugsFromDirectory(dirname: string): Promise<Array<{ sl
     "use server";
     return fs
     .readdirSync(dirname)
+    // Remove files that are not mdx files.
+    .filter((filename) => filename.endsWith('.mdx'))
     // Remove file extensions for page paths
     .map((path: string) => path.replace(/\.mdx?$/, ''))
     // Map the path into the static paths object required by Next.js
