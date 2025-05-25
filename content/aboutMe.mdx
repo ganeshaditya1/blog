@@ -1,1 +1,109 @@
-# Hello World
+![Profile picture](profile_picture.jpg)
+(Me in May 2025)
+
+# HELLO WORLD!!
+
+My name is Aditya Ambadipudi. I am a software engineer. I have travelled extensively all over the world. 
+I was born in India and stayed there for 23 years. Then I moved abroad to the US and lived there for around 10 years. 
+I got my masters degree in Computer Science from US. I also worked in the US for around 8 years. I love computers and computer science. 
+My tryst with computers began in 3rd grade when my father bought a Cyrix computer with 64mb of ram and 8GB of hard disk space.
+Over the course of the last 2.5 decades I have acquired several computers, learnt the inner workings of these magical devices. 
+Wrote software for them, some of which you might have used in the past.
+
+I am also an avid Chess fan. I do a lot of Chess puzzles in my free time. In the past I have came across several incredibly interesting 
+Chess puzzles and tricky positions in my games. I thought it would be interesting to share them with them with everyone. Which is also another
+reason why I choose to create this blog.
+
+Finally if you wish to connect with me, here are my contact details:
+
+**Email**: blog [at] adityaambadipudi [.] in \
+**LinkedIn**: [adityaambadipudi](https://www.linkedin.com/in/adityaambadipudi/) \
+**Twitter**: [AdityaSastry1](https://www.x.com/AdityaSastry1) \
+**Current location**: Hyderabad, Telangana, India
+
+# Employment History
+
+**Amazon, AWS** \
+Software Engineer, June'24 - March'25, Seattle, WA, USA\
+Internal ticketing team, Campaigns and bulk ticketing
+
+- Primarily a backend engineer working on building the backend for the new campaign onboarding system.
+- Built several of the end points in Java. The service was deployed to EKS cluster.
+- Mentored junior engineers and assisted them in creating end points in this service as well.
+- Integrated with internal people information APIs to pull employee information. 
+Used exponential backoff and caching to ensure we meet them 10 requests/second throttling limit set by the API.
+- Created a unified end point for instances of the service living in several regions. 
+- Caught a 1.5 decade old bug in the system for viewing live campaigns. 
+Which was letting users un-ack a risk that they never ack'd which was letting them reset the deadline on the risk.
+
+**Arm ltd**\
+Software Engineer, June'23 - May'24, Austin, TX, USA\
+Opensource networking team
+
+- Helped with hiring and onboarding new team members:
+- Created a Lockfree queue assignment in C++ for new teammembers. Conducted several rounds of interviews for roles ranging from Intern to Senior software engineer.
+- Provided the implementation for a bulk copy Deque datastructure. Used loop unrolling to automatically generate SIMD instructions. (C programming language)
+- Working on a reference architecture for running high performance DPDK based networking application in a Kubernetes cluster using CNIs like Multus, Calico, SRIOV. Working on solving several typical distributed systems problems within in this cluster like High Availability, Auto Scaling and Observability.
+
+**Cisco Meraki**\
+Software Engineer, December'21 - June'23, Remote, Jersey City, NJ, USA\
+vMX team
+
+- Worked in the vMX team. Developing new features & bug fixes for the AWS EC2 firmware in C/C++. 
+- Fixed two critical bugs in our internal forks of gRPC & DirectFB to prevent crashing on exit. 
+- Helping build the next generation of MX routers based on DPDK & VPP that significantly improves the throughput.
+- Working on the control plane side of things. Migrated several key services to the new system like watchdog timer, stats monitoring utility, config fetcher, CGI gateway that is used for serving local admin pages on our routers. Also made a department wide presentation about the challenges faced in this migration effort.
+
+**Bloomberg LP**\
+Senior Software Engineer, July'20 - December'21, New York city, NY, USA\
+Rule Builder team
+
+- Worked as a full stack engineer in the RBLD team which is Bloomberg’s rule based trading function built on Storm. 
+- Spearheaded several key initiatives like retiring OrderId, RouteId, FillID and replacing them with a unified Entity ID. This helped us attain parity with the downstream systems, greatly simplified a few code paths, reduced the amount of things we cache in memory and helped us declutter the UI. Lead a team of two on this project.
+- Implemented three new regions in the performance wheel function and dealt with the resulting performance issues. Created a Splunk dashboard for monitoring the performance. Worked with the product manager and the downstream team to ensure that our UI performance didn’t degrade with the addition of these new regions.
+- Worked with another Senior engineer in the team to implement the much requested order modification feature. This involved making changes to the actual rule evaluation engine as well as the connecting systems. Co-ordinated with several stakeholders like QAs, UX team, product manager to safely roll this feature out.
+
+Software Engineer, June'17 - July'20, Princeton, NJ, USA\
+Third party financial indices team
+
+- Working in the financial Indices team that was one of the teams responsible for onboarding Barclay's Fixed income indices. 
+- Built a preprocessing system using Apache Spark to ingest municipal indices Historical data.
+- I helped build a generic three-stage distributed backfilling system that used Apache Kafka for communication. 
+- Built a multithreaded QC system that maintains a cache of the bond level attributes of 150k bonds over a 10 year period refreshed every night. 
+- Replaced a legacy database that was hit 100 million times a day running on Solaris, AIX machines with a modern SQL based database. Wrote a restful API in C/C++ for existing clients
+- Helped onboard several new index families and data from index vendors
+
+**Rutgers University**\
+Part time lecturer, September'16 - May'17, New Brunswick, NJ, USA\
+CS170 course
+
+- Conducted recitations for two sections of CS-170 classes. It was an intro course covering Html, CSS, JS & Excel. 
+- Graded papers, helped students with their homework, etc.,
+
+**Bank of America, Merrill Lynch**\
+Summer Technology Analyst, June'16 - August'16, New York City, NY, USA\
+Joint intern in Settlements team and Assets management team
+
+- Built a log ingesting system using Elastic Search, Kibana & Log Stash. 
+- Wrote a microservice in Scala using Sinatra that would process the log files and generate a report for the auditors.
+
+# Education History
+
+**Rutgers University**\
+MS in Computer Science, September'15 - May'17, New Brunswick, NJ, USA
+
+**GITAM University**\
+B.Tech in Computer Science & Engineering, September'10 - May'14, Vishakhapatam, AP, India
+
+# Open Source contribution
+[DPDK - Single threaded Deque datastructure](https://mails.dpdk.org/archives/dev/2023-August/275003.html) (Not merged)
+
+[PHPMyAdmin - Multicolumn sort feature when viewing the result of a query as table](https://github.com/phpmyadmin/phpmyadmin/pull/1077)
+
+[Mediawiki(the software behind Wikipedia) - several bug fixes and two minor features](https://gerrit.wikimedia.org/r/q/owner:ganeshaditya1@gmail.com)
+
+---
+*This blog was built using [nextjs](https://nextjs.org/), [Reactjs](https://react.dev/), [Tailwindcss](https://tailwindcss.com/). 
+And it is hosted on [Vercel](https://vercel.com/). All the blog posts including this page is written in MDX, which is compiled to static webpages at build time. 
+[Source code of the blog](https://github.com/ganeshaditya1/blog)*
+
