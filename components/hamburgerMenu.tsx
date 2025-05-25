@@ -6,15 +6,15 @@ import { usePathname } from 'next/navigation';
 export default function HamburgerMenu() {
     const pathname = usePathname();
     const [isHidden, setVisibility] = useState(true);
-    const dropdownRef = useRef(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     const onclickHandler = () => {
         setVisibility(!isHidden);
     }
 
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
         // Check if the click is outside the dropdown
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target as HTMLDivElement)) {
             setVisibility(true);
         }
     };
