@@ -33,3 +33,5 @@ synopsis: Horrible post.
 ```
 
 Setting published to true will cause it to appear on the site.
+
+Refer to the SampleFileWithAllMdxSyntax.mdx file for examples of all valid syntaxes.
