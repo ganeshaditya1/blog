@@ -10,6 +10,19 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </pre>
       </div>
     ),
+
+    // Add styling to headings
+    h1: ({ children }) => (
+      <h1 className="mb-[10px]">
+        {children}
+      </h1>
+    ),
+    a: ({ children, href }) => (
+      <a className="underline" href={href}>{children}</a>
+    ),
+    p: ({ children }) => (
+      <p style={{ wordSpacing: '0.15em', lineHeight: '1.65em' }}> {children} </p>
+    ),
     ...components,
   }
 }
