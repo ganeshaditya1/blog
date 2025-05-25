@@ -1,4 +1,5 @@
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata } from "next";
 import Link from 'next/link';
 import "./globals.css";
@@ -19,7 +20,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Analytics/>
+        <Analytics />
+        <SpeedInsights />
         <div className="flex flex-row justify-center m-[10px]">
           <div className="xl:w-[70%] 2xl:w-[60%] w-[90%]">
             <div className="flex flex-row justify-between border-b border-gray-200 xl:pl-[35px] pr-[35px] p-[5px]">
