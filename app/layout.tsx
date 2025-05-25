@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next"
 import type { Metadata } from "next";
 import Link from 'next/link';
 import "./globals.css";
@@ -18,12 +19,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Analytics/>
         <div className="flex flex-row justify-center m-[10px]">
           <div className="xl:w-[70%] 2xl:w-[60%] w-[90%]">
             <div className="flex flex-row justify-between border-b border-gray-200 xl:pl-[35px] pr-[35px] p-[5px]">
               <div className="flex flex-row">
                 <HamburgerMenu/>
-                <h1 className="whitespace-nowrap font-mono font-bold text-xl text-left inline xl:ml-[1px] ml-[10px]">
+                <h1 className="whitespace-nowrap font-mono font-bold text-xl text-left inline xl:ml-[1px] ml-[10px] ">
                   <Link href="/">Aditya Ambadipudi</Link>
                 </h1>
               </div>
