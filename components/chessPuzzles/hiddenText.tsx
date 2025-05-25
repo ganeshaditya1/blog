@@ -11,6 +11,6 @@ export default function HiddenText( {displayText, hiddenText }: {displayText: st
     };
 
     return (
-        <p onClick={handleTextChange} className="font-bold" style={{cursor: 'pointer'}}>{text}</p>
+        <p onClick={handleTextChange} className="font-bold underline" style={{cursor: 'pointer'}}>{text}</p>
     );
 };
