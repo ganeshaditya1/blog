@@ -22,8 +22,9 @@ export default function RootLayout({
       <body>
         <Analytics />
         <SpeedInsights />
+        <div className="h-[3px] w-[100%] bg-gray-500"> </div>
         <div className="flex flex-row justify-center m-[10px]">
-          <div className="xl:w-[80%] 2xl:w-[70%] w-[90%]">
+          <div className="xl:w-[80%] 2xl:w-[60%] w-[90%]">
             <div className="flex flex-row justify-between border-b border-gray-200 xl:pl-[35px] pr-[35px] p-[5px]">
               <div className="flex flex-row">
                 <HamburgerMenu/>

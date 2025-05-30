@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Post } from '@/models/Post';
+import Tag from '../tag';
 
 export default function PostSynopsis({ post }: { post: Post }) {
     return <div className="mb-[20px]">
@@ -7,9 +8,9 @@ export default function PostSynopsis({ post }: { post: Post }) {
             <h1 className="mb-[10px]">
                 <Link href={`posts/${post.slug}`}>{ post.title }</Link>
             </h1>
-            <div className="flex flex-row gap-3 mb-[20px]">
+            <div className="flex flex-row flex-wrap gap-3 mb-[40px]">
                 {post.tags.map((tag: string) => (            
-                    <span className="bg-neutral-100 p-[1px] pl-[6px] pr-[6px]" key={tag}>{tag}</span>
+                    <Tag tagText={tag} key={tag} />
                 ))}
             </div>
             <div className="mb-[50px] pb-[20px] ">{post.synopsis}</div>

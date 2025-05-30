@@ -4,8 +4,8 @@ import Tag from '../tag';
 export default function Post({ postData }: { postData: PostData }) {
     return <div>            
             <h2 className="font-thin text-sm underline underline-offset-4 decoration-gray-100 text-gray-600">{ postData.prettyCreationDate }</h2>
-            <h1 className="mb-[10px]">{ postData.title }</h1>
-            <div className="flex flex-row gap-3 mb-[40px]">
+            <h1 className="text-4xl mb-[10px]">{ postData.title }</h1>
+            <div className="flex flex-row flex-wrap gap-3 mb-[40px]">
             {postData.tags.map((tag: string) => (            
                 <Tag tagText={tag} key={tag} />
             ))}

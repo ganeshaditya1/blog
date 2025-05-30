@@ -13,7 +13,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 
     // Add styling to headings
     h1: ({ children }) => (
-      <h1 className="mb-[10px]">
+      <h1 className="text-3xl mt-[10px] mb-[10px]">
         {children}
       </h1>
     ),
