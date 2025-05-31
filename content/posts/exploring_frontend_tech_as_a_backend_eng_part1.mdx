@@ -1,0 +1,64 @@
+---
+title: "Exploring the frontend landscape as a mostly backend engineer part I - Build tools"
+createdAt: 2025-05-27
+published: true
+tags: frontend, build tools, javascript, npm, yarn, babel, webpack
+synopsis: "This is the first blog post in the series of blog posts that I intend to write. In this series I explore the frontend landscape, along with some of the most important front end technologies as a primarily backend engineer. In this first post, I explore three types of tools that are involved in the creation of a frontend system. All three are involved in the build process of a frontend system. I will first start with transpillers. Then move on to package management systems. And then finally bundling software that actually creates deployable frontend software. I explore various tools in all the three categories. Talk about the tradeoffs and the exact problems that these tools solve. Along with some examples and sample code."
+---
+
+My job title in most of the jobs that I worked was fullstack engineer, but I would say I am predominantly a backend engineer. 
+I can still work my way around the frontend. Of late, I became curious about how modern frontend software is designed. So I decided to take a deep dive
+into the world of frontend technologies. In this first post, I will cover various challenges faced when building the frontend system i.e. Transpiling, 
+pulling all of the dependencies, actually building a deployable software artifact.
+
+The general idea I had in my mind when I started exploring frontend systems is that I should try to learn the science behind frontend technologies. I will first 
+start by understanding what are the major problems in designing and building a frontend system. Then analyzing each of these problems a little bit more, 
+exploring various approaches people have taken to solving these problems. Exploring various tools that were created for solving these problems. 
+The tradeoffs these tools make. Finally doing a bit of experimentation to actually watch these tools solve the problem. Tools, libraries 
+and frameworks are not the focus of these blog series, even though it may seem that I am primarily exploring various tools. 
+
+Secondly I want to say that a lot of people seem to think that frontend engineering is not real engineering work. It is more of a creative field concerned
+with the asthetics of the website. In the past few weeks that I have spend learning frontend technologies, the one thing I have realized is that frontend
+work is just as challenging as backend work and requires quantitative, problem solving skills. Frontend engineering involves a lot of performance tuning as
+well.
+
+Thirdly I am assuming that you are a backend engineer like me. Someone who primarily codes in langauages like Java or Rust or Go or Kotlin. Not a NodeJs
+developer. Because if you are a NodeJs developer you will not get much value out of reading these posts. Your idea of how to build a website is to create
+a HTML file, add a bunch of tags to create the overall structure of the website. Add some CSS to style the tags. Finally add some Javascript to make the
+whole thing interactive. And the way all of this is tied together is using script tags or style tags that import the script/style files located in the same 
+repo as your HTML files. This was largely the case up until 2014 when I was in college. In the last few years, things have changed tremendously with the
+invention of libraries/frameworks like React, Tailwind etc. 
+
+# Search engine rankings - The way websites get compared
+
+When you are building a website, you want it to rank higher in the search rankings. That way you will get a lot of traffic to your site. Search engines
+have a really complicated way for score websites. Some of that information about how websites are ranked is public, a lot of it is secret. Obviously having
+good unique content helps your website score higher. Another thing that helps your website score higher is when your users have a good experiences using
+your website. As a developer you might not really have a lot of control over the content in your website. But you can ensure that your visitors have a
+good experience when visiting your website. Google has a nice article explaining what makes for a good user experience [here](https://developers.google.com/search/docs/appearance/page-experience)
+
+There are some general heuristics that you need to follow to ensure your users have a good experience like not overloading your website with ads or showing 
+way too many popups etc. In addition to these heuristics, there are some objective metrics as well called core web vitals. Different search engines might
+have different names for this, but this is what Google calls them. There are three metrics that are used to measure your website's core web vitals:
+
+- [Largest Contentful Paint (LCP)](https://web.dev/articles/lcp) This is a metric that meaures how long it took for your website to load. 
+Having an LCP under 2.5 seconds is a good score according to google.
+- [Interaction To Next Paint (INP)](https://web.dev/articles/inp) This is an aggregate metric that measures how long it took for your website to
+respond to various user interactions. I.e. this metric measures how responsive your website is. Ideally this score should be less than 200 milliseconds
+- [Cumulative Layout Shift (CLS)](https://web.dev/articles/cls). This measures how stable your web page is. If your webpage is constantly loading
+fresh new data and the content is constantly shifting around, it makes for a bad user experience. A score on this metric less than 0.1 is desirable.
+
+Now you might be wondering how do search engines measure these metrics? Well 66% of the internet users use Google Chrome according to 
+[this](https://gs.statcounter.com/browser-market-share/) website. So in Google's case at least it is just watching people interact with your website on
+Google chrome and collecting these metrics live. So if 10% of your users who use Chrome have a bad experience, Google would know about it and they would
+give you a low score. Other search engines like Bing which is owned by Microsoft who also own Edge browser might be doing something similar too. 
+
+So obviously if you want your website to rank higher in search rankings, you need to improve your score on these metrics. Google has a tool called 
+[Lighthouse](https://developer.chrome.com/docs/lighthouse/) which is integrated into Chrome browser that you can use to measure your score against 
+these metrics. Lighthouse gives you a scores, warnings and tips about other areas too that you need to focus on to improve your overall search engine
+rankings.
+
+![Sample output from Lighthouse](/posts/exploring_frontend_tech_as_a_backend_eng_part1/Lighthouse.png)
+(Sample output from Lighthouse)
+
+

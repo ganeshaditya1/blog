@@ -4,11 +4,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     // Custom component for code blocks
     pre: ({ children }) => (
-      <div className="bg-gray-100 rounded-md border border-gray-200">
-      <pre style={{ padding: '10px' }}>
+      <pre className="border border-gray-400 rounded-md p-[10px] whitespace-pre-wrap mt-[10px] mb-[15px]">
         <code>{children}</code>
       </pre>
-      </div>
     ),
 
     // Add styling to headings
