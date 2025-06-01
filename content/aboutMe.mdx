@@ -25,8 +25,8 @@ Internal ticketing team, Campaigns and bulk ticketing
 - Worked on building the backend for the new campaign onboarding system.
 - Built several end points of this new service in Java. The service ran on an EKS cluster.
 - Mentored two junior engineers and assisted them in creating end points in this service as well.
-- Integrated this new service with the employee information system to pull employee information. 
-Used exponential backoff and caching to ensure we meet them 10 requests/second throttling limit set by the API.
+- Integrated this new service with the employee information system to fetch the management chain of a given employee.Used exponential backoff and caching to ensure we meet them 10 requests/second throttling limit set by the API.
+- Integrated this service with people api to fetch the employee number and use that in place of employee alias and have that information be fetched before any request to this new service is processed and make it available in the context of each incoming request.
 - Created a unified end point for instances of the service living in several regions. 
 - Caught a 1.5 decade old bug in the system for viewing live campaigns. 
 Which was letting users un-ack a risk that they never ack'd which was letting them reset the deadline on the risk.
