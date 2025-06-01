@@ -3,62 +3,632 @@ title: "Exploring the frontend landscape as a mostly backend engineer part I - B
 createdAt: 2025-05-27
 published: true
 tags: frontend, build tools, javascript, npm, yarn, babel, webpack
-synopsis: "This is the first blog post in the series of blog posts that I intend to write. In this series I explore the frontend landscape, along with some of the most important front end technologies as a primarily backend engineer. In this first post, I explore three types of tools that are involved in the creation of a frontend system. All three are involved in the build process of a frontend system. I will first start with transpillers. Then move on to package management systems. And then finally bundling software that actually creates deployable frontend software. I explore various tools in all the three categories. Talk about the tradeoffs and the exact problems that these tools solve. Along with some examples and sample code."
+synopsis: "This is the first blog post in the series of blog posts that I intend to write. In this series I explore the frontend landscape, along with some of the most important front end technologies as someone who has spent more time on the backend then frontend. In this first post, I explore three types of tools that are involved in the build process of a frontend system. I will first start with transpillers. Then move on to package management systems. And then finally bundling software that actually creates deployable frontend software. I explore various tools in all the three categories. Talk about the tradeoffs and the exact problems that these tools solve. Along with some examples and sample code."
 ---
 
-My job title in most of the jobs that I worked was fullstack engineer, but I would say I am predominantly a backend engineer. 
-I can still work my way around the frontend. Of late, I became curious about how modern frontend software is designed. So I decided to take a deep dive
-into the world of frontend technologies. In this first post, I will cover various challenges faced when building the frontend system i.e. Transpiling, 
-pulling all of the dependencies, actually building a deployable software artifact.
+For the majority of my career so far, I have worked as a fullstack engineer. I would say I have spent 95% of my time on the backend and 5% on the frontend. I can work my way around a frontend system. I know some basic concepts of React like components, hooks etc. If I am building a new API endpoint in the backend service, I can build a few components and a React page to consume the API and display the data to the user with very little hand holding.
 
-The general idea I had in my mind when I started exploring frontend systems is that I should try to learn the science behind frontend technologies. I will first 
-start by understanding what are the major problems in designing and building a frontend system. Then analyzing each of these problems a little bit more, 
-exploring various approaches people have taken to solving these problems. Exploring various tools that were created for solving these problems. 
-The tradeoffs these tools make. Finally doing a bit of experimentation to actually watch these tools solve the problem. Tools, libraries 
-and frameworks are not the focus of these blog series, even though it may seem that I am primarily exploring various tools. 
+But what I lack is a deep understanding of how frontend systems work. In my head when I think of a frontend systems I think of a couple of HTML webpages that define the layout of the webpage. CSS to style the HTML webpages and Javascript/typescript files to make the webpages interactive. This was roughly how things were when I was in college in 2014. In the last decade or so, things have changed drastically. 
 
-Secondly I want to say that a lot of people seem to think that frontend engineering is not real engineering work. It is more of a creative field concerned
-with the asthetics of the website. In the past few weeks that I have spend learning frontend technologies, the one thing I have realized is that frontend
-work is just as challenging as backend work and requires quantitative, problem solving skills. Frontend engineering involves a lot of performance tuning as
-well.
+So I gave myself 2 weeks time to learn as much as I can about how frontend systems work. My goal was to learn the science behind frontend engineering, not just some APIs or frameworks or libraries. I wanted to develop a deeper understanding of what problems a particular tools/framework/library solves. What are the tradeoffs it makes. Why was that tool created. How did people solve these problems before this tool was invented, etc.
 
-Thirdly I am assuming that you are a backend engineer like me. Someone who primarily codes in langauages like Java or Rust or Go or Kotlin. Not a NodeJs
-developer. Because if you are a NodeJs developer you will not get much value out of reading these posts. Your idea of how to build a website is to create
-a HTML file, add a bunch of tags to create the overall structure of the website. Add some CSS to style the tags. Finally add some Javascript to make the
-whole thing interactive. And the way all of this is tied together is using script tags or style tags that import the script/style files located in the same 
-repo as your HTML files. This was largely the case up until 2014 when I was in college. In the last few years, things have changed tremendously with the
-invention of libraries/frameworks like React, Tailwind etc. 
+Having said that, here are my learnings. 
 
 # Search engine rankings - The way websites get compared
 
-When you are building a website, you want it to rank higher in the search rankings. That way you will get a lot of traffic to your site. Search engines
-have a really complicated way for score websites. Some of that information about how websites are ranked is public, a lot of it is secret. Obviously having
-good unique content helps your website score higher. Another thing that helps your website score higher is when your users have a good experiences using
-your website. As a developer you might not really have a lot of control over the content in your website. But you can ensure that your visitors have a
-good experience when visiting your website. Google has a nice article explaining what makes for a good user experience [here](https://developers.google.com/search/docs/appearance/page-experience)
+When you are building a website, you want it to rank higher in search rankings. That way you will get a lot of traffic to your site. Search engines have a really complicated way for scoring websites. Some of that information about how websites are ranked is public, a lot of it is secret. Obviously having good, unique, interesting content that uses a lot of keywords that people frequently search for on the internet helps your website score higher. The other important thing that helps your website rank higher is the user experience. As a developer you might not really have control over the content of your website. But you can ensure that your visitors have a good experience when they visit your website. Google has an article explaining what makes for a good user experience [here](https://developers.google.com/search/docs/appearance/page-experience)
 
-There are some general heuristics that you need to follow to ensure your users have a good experience like not overloading your website with ads or showing 
-way too many popups etc. In addition to these heuristics, there are some objective metrics as well called core web vitals. Different search engines might
-have different names for this, but this is what Google calls them. There are three metrics that are used to measure your website's core web vitals:
+There are some general heuristics that you can follow to ensure your users have a good experience like not overloading your website with ads for example. But the question of how many ads to display is quite subjective. Some of these heuristics like this are listed in the link above. In addition to these subjective heuristics, there are also some objective metrics that you can optimize for called core web vitals. Different search engines might have different names for these metrics, but "core web vitals" is what Google calls them. Your website's core web vital score is composed of the following three metrics:
 
-- [Largest Contentful Paint (LCP)](https://web.dev/articles/lcp) This is a metric that meaures how long it took for your website to load. 
-Having an LCP under 2.5 seconds is a good score according to google.
-- [Interaction To Next Paint (INP)](https://web.dev/articles/inp) This is an aggregate metric that measures how long it took for your website to
-respond to various user interactions. I.e. this metric measures how responsive your website is. Ideally this score should be less than 200 milliseconds
-- [Cumulative Layout Shift (CLS)](https://web.dev/articles/cls). This measures how stable your web page is. If your webpage is constantly loading
-fresh new data and the content is constantly shifting around, it makes for a bad user experience. A score on this metric less than 0.1 is desirable.
+- [Largest Contentful Paint (LCP)](https://web.dev/articles/lcp) This is a metric that meaures how long it took for your website to load and render. Having an LCP under 2.5 seconds is a good score according to google.
+- [Interaction To Next Paint (INP)](https://web.dev/articles/inp) This is an aggregate metric that measures how long it took for your website to respond to various user interactions. I.e. this metric measures how responsive your website is. Ideally this score should be less than 200 milliseconds
+- [Cumulative Layout Shift (CLS)](https://web.dev/articles/cls). This measures how stable your web page is. If your webpage is constantly loading fresh new data and the content is constantly shifting around, it makes for a bad user experience. A score on this metric less than 0.1 is considered desirable.
 
-Now you might be wondering how do search engines measure these metrics? Well 66% of the internet users use Google Chrome according to 
-[this](https://gs.statcounter.com/browser-market-share/) website. So in Google's case at least it is just watching people interact with your website on
-Google chrome and collecting these metrics live. So if 10% of your users who use Chrome have a bad experience, Google would know about it and they would
-give you a low score. Other search engines like Bing which is owned by Microsoft who also own Edge browser might be doing something similar too. 
+Now you might be wondering how do these search engines measure these metrics? Well 66% of the internet users use Google Chrome according to [this website](https://gs.statcounter.com/browser-market-share/). So in Google's case at least, they are just watching people interact with your website on Google chrome and collecting these metrics live. So if 10% of your users who use Chrome have a bad experience, Google would know about it and they would give you a low score on core web vitals. Other search engines like Bing which is owned by Microsoft who also own Edge browser might be doing something similar to this. 
 
-So obviously if you want your website to rank higher in search rankings, you need to improve your score on these metrics. Google has a tool called 
-[Lighthouse](https://developer.chrome.com/docs/lighthouse/) which is integrated into Chrome browser that you can use to measure your score against 
-these metrics. Lighthouse gives you a scores, warnings and tips about other areas too that you need to focus on to improve your overall search engine
-rankings.
+So obviously if you want your website to rank higher in search rankings, you need to improve your score on these metrics. Google has a tool called [Lighthouse](https://developer.chrome.com/docs/lighthouse/) which is integrated into Chrome browser that you can use to measure your score against these metrics. Lighthouse gives you a scores, warnings and tips about other areas too that you need to focus on to improve your overall search engine rankings. Like for example if you are not serving all or some of your webpages via HTTPS, lighthouse will let you know. Even though this is not part of core web vitals, fixing these warnings will ensure that your website scores higher.
 
 ![Sample output from Lighthouse](/posts/exploring_frontend_tech_as_a_backend_eng_part1/Lighthouse.png)
 (Sample output from Lighthouse)
 
+Now you might be wondering why you should care about any of this. And how is any of this related to frontend tools or technologies that I was studying. The answer to the first question is that your website should load fast, should respond to user interactions as quickly as possible and your website should be stable and not change a lot after it has finished loading. These are not unreasonable expectations. These are the goals you should strive for, when you are building a website, whether or not some external service like Google or Bing is measuring how well you are doing on these expectations. 
 
+Secondly, now that we have established a criteria for measauring/quantifying the user experience on a website or rather Google has established the criteria for good user experience, we can start working towards building a good website. A lot of the modern tools and technologies that I will cover in these series of blogposts were designed to improve your core web vitals score.
+
+# Transpilers - Babel, TSC, NextJS Compiler
+
+A transpiler is a source to source compiler. It takes code written in one language and converts it to code in another language. In the context of frontend engineering, transpilers are mostly used to convert Javascript code written in latest version of Ecma script or code that uses Javascript features that the target browser or any browser currently does not supports to older versions of javascript code that all the browsers can run. It has various other use cases that transpilers support that I will cover in this section.
+
+## Babel
+
+I will start off with [Babel](https://babeljs.io/docs/) because it is the most well known transpiler out there. Most of the time, transpiler are never run manually, but instead they are invoked by Webpack or Turbopack as a part of the build process.
+
+Also if you are a NodeJs backend engineer, you might be already familiar with transpilers. I am a Java/C++ developer, so I am pretty new to JS/TS transpilers.
+
+To install Babel, create a new folder and run the following command:
+
+~~~bash
+npm install --save-dev @babel/core @babel/cli @babel/preset-env
+~~~
+
+You can use `yarn` or `pnpm` too. But I will use `npm`.
+
+Then create the following js file that uses ES2015 syntax. Name the file `arrow.js`.
+~~~js
+[1, 2, 3].map(n => n + 1);
+~~~
+
+The arrow function was introduced in ES2015. Now let's compile this down to ES5, using the following command:
+~~~bash
+npx babel arrow.js --out-dir lib --presets="@babel/preset-env"
+~~~
+
+This will generate the following code:
+~~~js
+"use strict";
+
+[1, 2, 3].map(function (n) {
+  return n + 1;
+});
+~~~
+
+And this code will run in older browsers that don't support ES2015. The difference between frontend engineering and backend engineering is that with backend, you can control the environment where you code runs. But when you are building a frontend you simply can't control the environment. If even 10% of your users use an outdatted browser that doesn't support a JS feature that you are using in your source code, things will break for those users. And if things break, error messages are logged into console, your lighthouse score will suffer and consequently your search engine rankings as well.
+
+### JSX
+
+You can do other types of transpiling using Babel too. For example you can use Babel to transpile JSX code to pure JS. All you need is a Babel preset for doing that. Think of a [preset](https://babeljs.io/docs/presets) as a plugin along with the configuration to run that plugin. 
+
+Run the following command to install the React preset which will help us transpile JSX to pure JS code.
+
+~~~bash
+npm install --save-dev @babel/preset-react
+~~~
+
+And then create a JSX file with a JSX element like this and call it jsxElement.jsx:
+~~~js
+export default function TestJsxElement() {
+        return (<div> <h1> Hello World </h1> </div>);
+};
+~~~
+
+Transpile the code to ordinary js using the following command:
+~~~bash
+npx babel jsxElements.jsx --out-dir lib --presets="@babel/preset-env,@babel/preset-react"
+~~~
+
+This will generate the following js file:
+~~~js
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = TestJsxElement;
+function TestJsxElement() {
+  return /*#__PURE__*/React.createElement("div", null, " ", /*#__PURE__*/React.createElement("h1", null, " Hello World "), " ");
+}
+~~~
+
+And that my friends is how JSX code runs on browsers. When I first started working on a React project at work, I couldn't figure out how we were embedding HTML code directly into JS. I remember reading through React documentation and not getting a satisfactory answer. Now after reading about Babel and it's presets, it all makes sense to me now.
+
+### Multi-browser support
+
+Another cool thing that you can do with Babel is to just specify a list of target browsers along with the lowest version number that you wish to support for them in a `babel.config.json` file like this:
+
+~~~js
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "edge": "17",
+          "firefox": "60",
+          "chrome": "67",
+          "safari": "11.1"
+        },
+        "useBuiltIns": "usage",
+        "corejs": "3.6.5"
+      }
+    ]
+  ]
+}
+~~~~
+
+Since you own your website you might know what browsers your visitors are using. Once you create a file like this, you can transpile all of your JS code to the appropriate ES version that is supported by all the browsers. You don't have to manually create code for each browser version. Nor do you need to check if a particular browser's ES version supports the ES feature that you intend to use in your code base.
+
+This covers all of the famous transpiling features of Babel. There are presets available for transpiling typescript to ES script as well. All the examples, that I have shown here so far can be sumarized as Babel transforming newer JS syntax to older JS syntax.
+
+### Polyfills
+
+Now what if you want to use a function or method or some library that was added to newer versions of ES but they are not supported in older versions of ES? It's not a matter of transforming syntax anymore. It's a matter of adding the missing code. That's when you need [Polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). They are basically like a library/module that you import into you code that will provide the missing code you need to run latest version of ES code on older browsers. Polyfills are not just for backporting missing code to older browsers. They fix broken implementations too. One thing to note about Polyfills is that it is important to import Polyfill at global scope and make sure it runs before anything else. They need to be the first thing that runs on your webpage. So they can patch all the problematic code.
+
+The most famous example of code that needs polyfill is the following. Save it into a file called `promise.js`:
+
+~~~js
+Promise.resolve().finally();
+~~~
+
+Install the polyfill dependency
+~~~bash
+npm install --save @babel/polyfill
+~~~
+
+And then invoke babel on the file to transpile it.
+~~~bash
+npx babel promise.js --out-dir lib
+~~~
+
+And it will generate the following file:
+~~~js
+"use strict";
+
+require("core-js/modules/es7.promise.finally.js");
+Promise.resolve().finally();
+~~~
+
+As you can see, I have not specified a preset when invoking babel. It is possible to specify the polyfill option using babel-cli like I did for earlier examples. But it is much more simple to use a `babel.config.json` file and specify the preset and it's configuration options inside the config file. Use the config file I posted just a few paragraphs above this paragraph for this example to work. 
+
+When you run this command, babel will automatically require a file from `core-js`. `core-js` is a collection of polyfills for supporting older browsers. Babel will exactly pull in the polyfill your code needs and won't import anything that your code doesn't need. This is because we have used the option `useBuiltIns: usage` option in the babel's present-env's config. 
+
+## TSC and Nextjs compilers
+
+TSC is kind of similar to babel. It is primarily used to transpile Typescript code to Javascript code. You can use Babel and TSC together. Using Babel for transpiling and TSC for typechecking. TSC from what I read supports the entirety of typescript features. And Babel and it's presets don't support all of the typescript features. At the time of writing this article, I couldn't find the source article where I read this. Maybe this is no longer the case, hence the author of that article decided to delete it. I also remember reading somewhere that Babel and TSC don't generate the same identical output. Again I cannot find the source of this claim. TSC is maintained by the people who own Typescript. To ordinary folks like you and me, this probably doesn't mean much. But if I were to speculate TSC might receive latest typescript features faster than Babel and it's typescript presets. 
+
+A major distinguishing factor between all of these transpilers is the speed at which they transpile. TSC was recently re-written in Go to speed it up. 
+
+Another compiler that is focused on speed is the NextJS compiler. NextJS is written in Rust. NextJS is quite an influential project in the world of React. They have produced a lot of tools and frameworks that improve React. But they kind of operate in a space where they have no competition I feel. And they are backed by a for-profit company Vercel. It is for this reason, I will only briefly talk about anything related to nextjs/Vercel in my blogs. I do anticipate that I will be writing a really big blog post on NextJS & Vercel in the coming weeks. A lot of discussion about the problems that frontend developers face would simply be incomplete without talking about NextJS and Vercel at length.
+
+# Dependency management - npm, Yarn, pnpm
+
+So you have written some code using fancy new ES features. You managed to transpile it to older ES version code so even your clients who use antiquated browsers will be able to use your website. You shipped all the polyfills necessary to make sure your website works everywhere. What's the next thing you need? Libraries. 
+
+You need to install the libraries you need and ship them with your code. You need to include the exact version of the library your code needs. Your code needs to work on all environments where you ship it. To manage this problem effectively we use dependency management tools like npm, Yarn, pnpm. 
+
+Back in 2014, when I was still in college people would use script tag to include external dependencies. The are plenty of reasons why that is a bad idea that I will not cover in this post. Essentially the industry has moved to a model where people use tools that are equivalent of Python's Pip to install and manage dependencies. They ship all the libraries they need in a bundle.
+
+So what problem are we solving in this layer? Basically if we are given a dependency tree e.g. `A -> B. B -> C. B -> D. And D -> E`. We want a flattened dependency structure like this: [A B C D E]. Where only the things that we need are listed. And we want each of the libraries to be able to find the dependency they need in this structure. As deceptively simple as this problem may seem, there are quite a few challenges that the tools I mentioned tackle in this layer. The two obvious ones being minimal disk usage and fast builds.
+
+Basically we don't want the dependency management system to take up too much disk space. Nor do we want it to move a crap ton of files around, slowing down the build process. Finally we want the build process to be fast. Plenty of optimizations were made by each of the tools I mentioned in the title of this section. I will start with `npm` first. 
+
+## NPM
+[npm](https://www.npmjs.com/) stands for `Node package manager`. To create a new npm project run the following command:
+
+~~~bash
+npm init
+~~~
+
+It asks you a bunch of questions and creates a file called `package.json`. This file contains a list of all the packages that your project depends on, as well as a lot of metadata about your project like name, version number etc.
+
+Now when you install a library into your project for example `lodash` using the following command:
+
+~~~bash
+npm install --save-dev lodash
+~~~
+
+It modifies your package.json file and creates a new directory called `node_modules` and also a file called `package-lock.json`. The `--save-dev` flage declares the dependency as a dev dependency. I.e. a dependency that you only need during the development phase. In the `package.json` file the dependency gets saved as a `devDependency`. 
+
+`package-lock.json` is an interesting file. While the `package.json` file specifies a range of dependencies that your project can work with. For example `^4.17.21` mean you would accept any minor version of the dependency. I.e. your code would work with `4.18.0` or `4.19.0` etc. but not `5.0.1` for example. And `~4.17.21` would mean that you would accept any patch version of the dependency. I.e. your code can work with `4.17.22` or `4.17.90` but it wouldn't work with `4.18.0` or `5.0.1`. We specify a range for version numbers instead of a directly specifying the exact version number we need because some dependency that you specify could also be required by some other dependency of your project somewhere down the dependency tree. If both your dependency and that dependency would specify the same package as a dependency and give a range of version numbers that you are willing to accept, npm would find a common version that could support both your project and your dependency. Thus it would only include only 1 version of that dependency. `package-lock.json` is the file that specifies the exact dependencies that we included in the final build of this project. It kind of "freezes" the version numbers of the dependencies. This [video](https://www.youtube.com/watch?v=kK4Meix58R4&t=102s) explains all of this in much more detail.
+
+`node_modules` is the other thing that is generated when you install your first dependency in your npm project. It contains all of the dependencies in your project as flatly as possible. Unless two of your dependencies require the same package but different, incompatible versions of it, in which case both the versions will be installed directly inside the directory of those dependencies. It is generally not recommended to ship the whole entire `node_modules` directory but instead only ship `package.json` and `package-lock.json`. One can recreate the `node_modules` directory at the place host location by simply running `npm install`. 
+
+## PNPM 
+
+[pnpm](https://pnpm.io/) still follows some of the conventions of `npm`. In that it uses a `package.json` file and a `node_modules` folder. But where pnpm differs from npm is the fact all the dependencies of pnpm reside in a [global content-addressable](https://pnpm.io/symlinked-node-modules-structure) location on the host. And each individual dependency of a project inside the `node_modules` folder is just a symlink to location inside the global location where the dependencies are present. If a dependency of your project has a dependency on another project that is a direct dependency of your project than instead of hardlinking to the global dependency twice, the dependency of your project will symlink to the dependency that is direct dependency of your project. Using these hard symlinks and soft symlinks, pnpm saves a lot of disk space and unnecessary copy of files/directories during build & installation steps.
+
+pnpm also avoids a couple of obvious bugs that npm has. For [example](https://www.kochan.io/nodejs/pnpms-strictness-helps-to-avoid-silly-bugs.html) if your dependency requires a project that gets installed into your node_modules folder. At this point your project can directly use that dependency even without explicitly mentioning it in `package.json`. This could lead to a problem where your project could break if your dependency either drops or changes the version number of this extra dependency that your project indirectly depends on. pnpm doesn't allow you to use any dependency without explicitly adding it to your project using a `pnpm add`.
+
+To demonstrate this issue. Create a new folder and initialize it with npm and install `@babel/core` into it. This will pull in about 40 packages and add them to the root directory of your node_modules folder. At the time of writing this article(31st May 2025), a package called `canIuse-Lite` was listed as a dependency of `babel-core`. You can directly use this package, even though you never installed it using `npm install` or added it to your `package.json` file. To demonstrate this. Create the following js file called `test.js`
+
+~~~js
+import * as lite from 'caniuse-lite';
+console.log(lite.default.agents['edge']);
+~~~
+
+And then run it using this command `node test.js`. It will output something like this:
+
+~~~
+{
+  usage_global: {
+    '12': 0,
+    '13': 0,
+    '14': 0,
+    '15': 0,
+    '16': 0,
+    '17': 0,
+    '18': 0.10932,
+    '79': 0,
+    '80': 0,
+    '81': 0,
+    '83': 0,
+~~~
+
+However if you repeat the same experiment with pnpm. I.e. create a new directory and initialize it with pnpm and install `@babel/core` into that project and copy this file into this new directory and execute it, you will get the following error message:
+
+~~~
+node:internal/modules/package_json_reader:268
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'caniuse-lite' imported from /home/aditya/workspace/experiments/pnpm/test.js
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:268:9)
+    at packageResolve (node:internal/modules/esm/resolve:768:81)
+    at moduleResolve (node:internal/modules/esm/resolve:854:18)
+    at defaultResolve (node:internal/modules/esm/resolve:984:11)
+    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+    at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v22.15.0
+~~~~
+
+Secondly, pnpm doesn't honor the `package-lock.json` file because unlike npm where you can install the same package and version number multiple times, each with a different set of dependency, each package and version number can only be installed exactly once on a host in pnpm.
+
+## Yarn
+
+The first version of [Yarn](https://yarnpkg.com/), in my opinion is a mild improvement over npm. It was created in 2016 by Facebook. Back then npm was not as polished as it is today. Yarn introduced some new ideas like caching the packages to speedup installation. Some security checks to ensure packages you are installing have not been corrupted. Yarn uses `yarn.lock` file instead of `package.lock` file.
+
+Yarn 2 however radically changed Yarn. It introduced a system called PnP(plug and play) which is very similar to pnpm. Just like pnpm all the packages reside some where in a global location on the disk. But unlike pnpm there are no soft/hard links to these packages or files within those packages. Instead there is a single file called `pnp.js` at the root of the project that contains the on-disk location of various dependencies. 
+
+While this idea sounds revolutionary and amazing, Yarn PnP faces a significant challenges in adoption. A lot of legacy tools, IDEs, native modules etc. expect a directory called `node_modules` at the root of the project. Yarn 2 has since addressed this issue by adding an option to create `node_modules` and have it populated with the dependencies of your project. Another issue that Yarn PnP faces is that of significant learning curve. Developers who are used to a physical `node_modules` directory are having to re-learn a lot of things. Debugging is also a pain, because error messages related to dependency management are not as clear as they are in other tools. Understanding and reasoning about the dependency graph of your project is also very difficult. Community adoption has been low, so there is very limited ecosystem around Yarn PnP. 
+
+# Bundling tools - Webpack
+
+Now that we have all of our source code transpiled to an appropriate ES version. And we have also installed all the dependencies that our project needs via the dependency management tool of our choice. The next and final task that remains in our agenda is creating a deployable artifact. That contains everything we need like JS, CSS scripts, images, fonts and even the HTML files of our webpage.
+
+Before I talk about how to build this deployable artifact and the importance of this artifact. I need to talk about `Modules`. I really thought of introducing modules at the very beginning of this blog post itself. However, from a narrative point of view, modules did not really fit into any of the sections preceding this one.
+
+## Modules
+
+It might not surprise a lot of folks when I say this, even the younger folks who are still in their teens, that JS did not always have modules. JS was not really modular at all. Knowing how horrible JS was before ES6, it just seemed obvious that JS would lack such a major feature. But I still spent a significant amount of time verifying this. And it definitely seems like before ES6 there was no modularization possible with JS at all. Never the less, I will hold my tongue in case some Computer Science historians or extremely pedantic academic folks come along and prove me wrong.
+
+Before modules, you would import a JS file into your webpage using a script tag. Everything in that file, functions, variables and what not sat in the global scope. If your file needed another JS file, that file would have to be included using a script tag as well. All these JS files were essentially linked into a webpage via script tags. And everything in these script files resided in global scope.
+
+Then came immediately invoked function expressions [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE). This kind of created a local scope. `(function() { var locally_scoped_variable = 0;})()`. 
+
+Then came NodeJS which invented something called [CommonJS modules](https://nodejs.org/api/modules.html#modules-commonjs-modules). Basically you would selectively expose things in your JS file using `module.export` and selectively import what you need to import using a `require()` statement.
+
+[AMD](https://requirejs.org/docs/whyamd.html#amd)(not advanced micro devices, but Asynchronous module definition) defined a format for modules as well. Using `define` and `require`.
+
+Then finally the concept of [modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) was formalized in 2016. 2 years after I graduated from college and at a time when I have completely moved away from frontend development. The statements `import` and `export` were formally added to ES6 syntax. Now if you want to export something out of a JS file like a constant or a function you would use the `export` syntax and if you needed to import something you would use the `import` statement. Pretty straight forward. Anything with an export statement is immediately regarded as a module now.
+
+## Webpack
+
+Now with that basic introduction out of the way, let's talk about [Webpack](https://webpack.js.org/concepts/). What Webpack needs is the entry script to your app/page/component/whatever you want to be considered as chunk/single unit that should be packed into a bundle as input. Starting from this script, it starts reading and parsing everything that is imported by this script. Yes that's right. Webpack actually reads all of the JS code that you want to bundle and it parses it all. If you think about it, it is kind of crazy to think that your JS code is processed twice before a deployable artifact is created. In the past, the only thing that would read these JS file was the browser. And it would read and execute them as well. But now we have two entites that are reading and processing your JS code in addition to your browser. First the transpiler that reads and transpiles the code to older versions of ES. Then Babel reads and parses your code as well.
+
+Webpack is not a transpiler however. It can only transform import/export statements. You need Babel or some other transpiler to actually generate code in older ES syntax. The reason Webpack needs to read your code is for generating a dependency graph. It reads all of your code and based on the import/export statements, it creates a dependency graph in memory. Based on this it creates chunks of individually runnable, self sufficient code. These chunks get grouped into bundles. And each of these bundles are written to the disk as files and can be individually requested by the browser.
+
+Now with that all of that introduction out of the way, lets create our first Webpack project.
+
+## Creating a basic bundle
+
+I will start off by creating an empty directory and initializing it with `npm init`.
+
+Then I will install some libraries that we will need related to Webpack:
+
+~~~
+npm install --save-dev webpack webpack-cli style-loader css-loader csv-loader html-webpack-plugin 
+~~~
+
+It must be obvious what the first two are. I will explain later what the last 4 dependencies are.
+
+I will also create the following directory structure and files:
+
+~~~
+├── dist
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── src
+└── webpack.config.js
+~~~
+
+Dist is the final distribution directory that will have the final deployable product. 
+
+There is a single photo in the public directory that I will link into my webpage using Webpack.
+~~~
+public
+└── whitecat.jpg
+~~~
+
+Src directory has the following files:
+~~~
+src
+├── data
+│   └── numbers.csv
+├── index.js
+└── style.css
+~~~
+
+numbers.csv:
+~~~csv
+A, B
+1, 2
+3, 4
+~~~
+
+style.css:
+~~~css
+th {
+     background-color: #f2f2f2;
+}
+~~~
+
+And finally this is the content of index.js:
+~~~js
+import './style.css';
+import csvData from './data/numbers.csv';
+import CatPicture from '../public/whitecat.jpg';
+
+// Function to create and display the table
+function createTable(data) {
+    const table = document.createElement('table');
+    
+    // Create table header
+    const headerRow = document.createElement('tr');
+    Object.keys(data[0]).forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        headerRow.appendChild(th);
+    });
+    table.appendChild(headerRow);
+    
+    // Create table rows
+    data.forEach(row => {
+        const tr = document.createElement('tr');
+        Object.values(row).forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+        });
+        table.appendChild(tr);
+    });
+
+    return table;
+}
+
+function createImage() {
+    const catPicture = document.createElement("img");
+    catPicture.src = CatPicture;
+
+    return catPicture;
+}
+
+document.body.appendChild(createTable(csvData));
+document.body.appendChild(createImage());
+~~~
+
+This looks like it is a lot of code, but it is essentially creating a table using the CSVdata we import and a img tag using the image file we imported at runtime and appending it to the body of the webpage.
+
+The important thing to note here is that we are importing the csv file, the image file and the css style file like they are some ordinary javascript modules. You might have seen this in an actual production facing frontend code base and might have wondered how this is possible! For a long time I used to think that this was a React feature. But I was wrong. This is actually a Webpack feature. I will explain how this works soon.
+
+And finally the contents of `webpack.config.js` that ties together this whole collection of files.
+
+~~~js
+const path = require('path');
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html', // Template HTML file
+      filename: 'index.html', // Output HTML file
+    }),
+  ],
+  module: {
+     rules: [
+       {
+         test: /\.css$/i,
+         use: ['style-loader', 'css-loader'],
+       },
+
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.(csv|tsv)$/i,
+        use: ['csv-loader'],
+      },
+     ],
+  }
+};
+~~~
+
+`module.exports` is the core part of this file. That is what you need to pay attention to. We export a bunch of configuration options from this file.
+
+* **entry**: This defines the entrypoint of our script. This is starting point that Webpack should read first when it is constructing the dependency graph. This could be an array incase of multiple entrypoints or it could be a map. I will dive deep into this option in a later section.
+* **output**: What output file we should create after creating a bundle? Where should we place it? All of this are configured in this section.
+* **plugins**: Here we are using a single plugin called HtmlWebpackPlugin. It creates a single HTML file and adds a script tag to that file linking to each of our JS bundles.
+* **module.rules**: This is the section where all the magic happens. Normally modules are JS modules, but Webpack allows us to treat images, css files, fonts, csv files and a whole lot of other files as modules and import them as JS files. In case of CSS files, they are minified and appended using a style tag to where ever this javascript file that is importing the CSS file is importing it. In case of assets like images, what you are actually get from that import statement is the final destination path of the image after Webpack builds the bundles. The CSV file just gets imported as a 2D array of strings. For CSS and CSV files we had to use an external plugin. If you refer to the command in this section where we installed a bunch of things, you can find the plugins there. These plugins have a special name in Webpack. We call them as [Loaders](https://webpack.js.org/concepts/#loaders). Basically you specify a regex expression for filenames. Anything that matches it will be passed to a loader. You can chain multiple loaders together too. Each one will read it and transform it into an importable module. Note that for images, we did not have to use any loader. That's because Webpack 5 comes with something called [Asset modules](https://webpack.js.org/guides/asset-modules/#root) to handle fonts, images, icons essentially.
+
+Now let's run this whole thing using the following command:
+
+~~~
+npx webpack
+~~~
+
+This generates the following files in the dist directory. The image file might have a different name when you run it.
+
+~~~
+dist
+├── a9ef24699a8c494b4497.jpg
+├── index.html
+└── main.js
+~~~
+
+If you open index.html in a browser this is how it will look:
+![Screenshot of the webpage that Webpack created.](/posts/exploring_frontend_tech_as_a_backend_eng_part1/webpackSimpleBundle.png)
+
+* The table has data from the csv file we imported.
+* The image was imported and displaying correctly.
+* The style file even though cannot be seen in the `index.html` file in the dist directory seems to have been imported correctly and the style within in it, was applied to the table header like we wanted.
+
+![Screenshot of inspect toolbar correctly showing the imported css file](/posts/exploring_frontend_tech_as_a_backend_eng_part1/screenshotOfInspectToolbar.png)
+(Screenshot of inspect toolbar correctly showing the imported css file)
+
+And that is a brief introduction to how Webpack works. Now I will discuss some advanced Webpack features.
+
+### Source maps
+Because of all the bundling and renaming that is happening, when something breaks it might be difficult to track down errors. Multiple js files on your disk could be combined into a single bundle. It's for this reason, javascript actually has a feature called [source maps](https://web.dev/articles/source-maps). These sourcemaps map bundles to individual files. So if something breaks in you bundle, the browser can look at the sourcemap and adjust it's stack trace to tell you exactly what broke. 
+
+You can add this option to `module.exports` of your `webpack.config.js` to automatically generate sourcemaps. There are various other options available as well. It is not recommended to use this in production environment. [Sourcemaps in webpack](https://webpack.js.org/guides/development/#using-source-maps)
+~~~
+devtool: 'inline-source-map',
+~~~
+
+### Dev server and Hot module replacement.
+
+Currently after making any change to any of the files in your repo you would have to run `npx webpack` each time to build your repo. Of course you could add this command to the script section of your `package.json` file, so you could invoke this command with a simple `npm run webpack` or something. But it's still tidious to have to run this command each time you make a change.
+
+Webpack gives you the option to run a [webserver](https://webpack.js.org/guides/development/#using-webpack-dev-server).
+
+You can install it with this command:
+~~~
+npm install --save-dev webpack-dev-server
+~~~
+
+Not that this is a rudimentary dev server and not intended for production use.
+
+And you would add this option to your `webpack.config.js` file:
+~~~
+devServer: {
+    static: './dist',
+  },
+~~~
+
+And if you run the command `npx webpack serve --open` it will start serving your files on `http://localhost:3000`
+
+And each time you update a file or something, it will automatically recompile that file and repack things, automatically update the contents of your webpage that is currently running without needed a full refresh. This is called [Hot module replacement](https://webpack.js.org/guides/hot-module-replacement/)
+
+### Code splitting
+
+This feature is what got me interested in Webpack and this feature is basically the reason I started this blog post series. Basically what [Code splitting](https://webpack.js.org/guides/code-splitting/) means is to split up existing chunks into more chunks and thus have them emitted as separate bundles, so you could load them parallely or load them on demand or load them in whatever way you think would best utilize the available network bandwith and allows you to quickly get things infront of your users. You can do that with Webpack. 
+
+There are three ways to do this:
+
+1. Remember the `entry` configuration option in `modules.export` of `webpack.config.js` file? You can specify multiple entry points there. That option is an array. The problem with this approach is that a separate bundle is created for each entrypoint. If there are common chunks between multiple bundles, for example `lodash` is needed by all the bundles that you are creating. Then `lodash` will be duplicated in all the bundles. Which is wasteful. Another obvious problem with this approach is that you are having to manually mark which files go into which bundles.
+
+2. The problem with the first approach is that if multiple chunks depend on the same chunk, that chunk is duplicated in multiple bundles. To prevent this problem there are two configuration options we can leverage.
+
+One approach is to pull out all the common chunks between the bundles into a separate bundle and have each bundle depend on that shared bundle like so:
+
+~~~js
+entry: {
+    bundle1: {
+      import: './src/file1.js',
+      dependOn: 'shared',
+    },
+    bundle2: {
+      import: './src/file2.js',
+      dependOn: 'shared',
+    },
+    shared: 'lodash',
+   },
+~~~
+
+
+Now since you have multiple bundles and you are pulling out all of the common chunks into a separate bundle, you need to be careful to not instantiate each module in the common chunk more than once. This is because several existing libraries and code bases use the global context to keep track of global state. There could be a queue or a counter or the module could be caching things in the global state of a JS module. If you are creating separate instances of the same module in multiple bundles, it would be as if that global state of that module is seeing only updates from a single bundle. You can read more about this problem [here](https://bundlers.tooling.report/code-splitting/multi-entry/)
+
+To solve this you need the following configuration option in your Webpack config file:
+
+~~~js
+optimization: {
+    runtimeChunk: 'single',
+},
+~~~
+
+This creates a runtime context that is shared among all the generated chunks. A runtime context is typically emitted as a bundle. It contains Webpack runtime logic and also code to import and intialize the chunks. You can also create a separate chunk for each entrypoint as well.
+
+Another option is to use the `splitChunksPlugin` by adding an optimization section to Webpack config like so:
+
+~~~js
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html', // Template HTML file
+      filename: 'index.html', // Output HTML file
+    }),
+  ],
+  module: {
+     rules: [
+       {
+         test: /\.css$/i,
+         use: ['style-loader', 'css-loader'],
+       },
+
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.(csv|tsv)$/i,
+        use: ['csv-loader'],
+      },
+     ],
+  },
+   optimization: {
+     splitChunks: {
+       chunks: 'all',
+     },
+   },
+}
+~~~
+
+What this will do is that it will automatically extract all the common chunks between bundles into a separate bundle. 
+
+3. And the final option we have for code spliting is [dynamic imports](https://webpack.js.org/guides/code-splitting/#dynamic-imports) i.e. `import()` notice that this looks like a function call. Anything that we import this way is automatically separated out into a separate chunk. Thus this chunk will not be loaded till the import statement is reached. This is particularly useful when we want to wait loading up some module till the user interacts with a component. 
+
+There are two flags that we can specify here in the import statement that are worth mentioning.
+
+~~~js
+import(/* webpackPrefetch: true */ './someRandomModule1.js');
+
+import(/* webpackPreload: true */ './someRandomModule2.js');
+~~~
+
+Prefetch delays requesting the module to a future time when the browser is idle. And will result in the following code being added to the head tag of the page:
+
+~~~html
+<link rel="prefetch" href="./someRandomModule1.js">
+~~~
+
+Preload on the other hand starts loading up the module along with the parent chunk where this import statement was located. Also this will cause the following tag to be added to the head tag of the page:
+
+~~~html
+<link rel="preload" href="./someRandomModule2.js">
+~~~
+
+The next post in this series will cover this in more depth, so I am going to leave this at that.
+
+### Treeshaking
+
+Treeshaking essentially means deadcode elimination. Webpack when it is reading through your code and constructing a dependency graph can identify modules that are not being used anywhere. For this to work, you have to use `production mode` and you need to absolutely use ES6 modules. This will not work with `CommonJs` modules. Also this does not work with dynamic import statements as well.
+
+Also if a module has a `sideeffect` i.e. it is changing the global state, it might be a bad idea to eliminate it. In that case it is better to specify in `package.json` all the files that have `sideeffects` like so:
+
+~~~js
+{
+  "sideEffects": ["./src/some-side-effectful-file.js"]
+}
+~~~
+
+Finally, treeshaking eliminates a few unnecessary modules/chunks which means less code has to be downloaded by the client's browser. Which means faster load times. To further optimize things we could minify our code(which happens automatically in `production mode`), this removes extra unnecessary whitespaces, thus making our bundles even smallers.
+
+And that's it folks. This is all I wanted to cover in this topic. These are all the options that caught my attention and I thought were interesting in the tools I touched. Please refer to their original documentation. I am sure they have tons of other useful operations as well. 
