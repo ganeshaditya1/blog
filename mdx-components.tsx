@@ -1,4 +1,5 @@
-import type { MDXComponents } from 'mdx/types'
+import type { MDXComponents } from 'mdx/types';
+
  
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -11,9 +12,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 
     // Add styling to headings
     h1: ({ children }) => (
-      <h1 className="text-3xl mt-[10px] mb-[10px]">
+      <h1 className="md:text-3xl text-2xl mt-[10px] mb-[10px]">
         {children}
       </h1>
+    ),
+    h2: ({ children }) => (
+      <h2 className="md:text-2xl text-xl mt-[10px] mb-[10px]">
+        {children}
+      </h2>
     ),
     a: ({ children, href }) => (
       <a className="underline" href={href}>{children}</a>
