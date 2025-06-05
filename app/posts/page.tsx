@@ -8,12 +8,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Page({}) {
-    const slugs = (await getSlugsFromDirectory('content/posts'))
-      .map((slug) => slug.slug);
+  const slugs = (await getSlugsFromDirectory('content/posts'))
+    .map((slug) => slug.slug);
 
-    const postPromises = slugs.map((slug) => getPostFromMdxFile(slug));
-    return Promise.all(postPromises)
-                  .then((posts) => (< Posts posts={ posts } />));
-  }
+  const postPromises = slugs.map((slug) => getPostFromMdxFile(slug));
+  return Promise.all(postPromises)
+                .then((posts) => (< Posts posts={ posts } />));
+}
    
   export const dynamicParams = false
