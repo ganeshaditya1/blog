@@ -11,13 +11,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
 
     // Add styling to headings
-    h1: ({ children }) => (
-      <h1 className="md:text-3xl text-2xl mt-[10px] mb-[10px]">
+    h1: ({ id, children }) => (
+      <h1 id={id} className="md:text-3xl text-2xl mt-[10px] mb-[10px]">
         {children}
       </h1>
     ),
-    h2: ({ children }) => (
-      <h2 className="md:text-2xl text-xl mt-[10px] mb-[10px]">
+    h2: ({ id, children }) => (
+      <h2 id={id} className="md:text-2xl text-xl mt-[10px] mb-[10px]">
         {children}
       </h2>
     ),
