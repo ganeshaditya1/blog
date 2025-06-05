@@ -8,6 +8,8 @@ import remarkMath from 'remark-math'
 
 import rehypeStarryNight from 'rehype-starry-night'
 
+import rehypeImgSize from "rehype-img-size";
+
 import remarkToc from 'remark-toc'
 
 import remarkGfm from 'remark-gfm'
@@ -28,7 +30,7 @@ const nextConfig: NextConfig = {
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
   options: {
-    rehypePlugins: [rehypeKatex, [rehypeStarryNight, ]],
+    rehypePlugins: [rehypeKatex, [rehypeStarryNight, ], [rehypeImgSize, { dir: 'public'}]],
     remarkPlugins: [remarkGfm, remarkFrontmatter, remarkMdxFrontmatter, remarkMath, remarkToc],
   },
 })
