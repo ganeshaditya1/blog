@@ -50,7 +50,7 @@ export default async function Page({}) {
         &nbsp;
         Current location &nbsp;
         </b>
-        <u><a href="https://maps.app.goo.gl/zeaeFBfckxwo6Dbw9">Hyderabad, India</a></u>
+        <u><a href="https://en.wikipedia.org/wiki/Hyderabad">Hyderabad, India</a></u>
         <div className="h-[0.9em]"> </div>
       </div>
     </div>
