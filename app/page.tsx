@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 export default async function Page({}) {
   return <>
-    <div className="flex flex-col items-center lg:flex-row lg:justify-center lg:gap-[100px] mb-[20px]">
+    <div className="flex flex-col items-center md:flex-row md:justify-center md:gap-[100px] mb-[20px]">
       <div className="flex flex-col items-center">
-      <Image src="/profile_picture.jpg" height={1956} width={4000} alt="My profile picture." className="lg:w-64 lg:h-64 w-56 h-56 rounded-full object-cover overflow-hidden mt-[20px] lg:mt-[0px]"/> <br/>
+      <Image src="/profile_picture.jpg" height={1956} width={4000} alt="My profile picture." className="md:w-64 md:h-64 w-56 h-56 rounded-full object-cover overflow-hidden mt-[20px] md:mt-[0px]"/> <br/>
       <span className="mb-[20px] mt-[10px]">(Me in June 2025)</span><br/>
       </div>
       <div className="">
