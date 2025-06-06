@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export default function HamburgerMenu() {
     const pathname = usePathname();
@@ -34,9 +35,7 @@ export default function HamburgerMenu() {
     return (
         <div className="block xl:hidden">
             <p onClick={onclickHandler} ref={buttonRef} style={{cursor: 'pointer'}}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="inline size-6" style={{ verticalAlign: "top" }}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
+                <Image src="/icons/hamburgerIcon.png" height={25} width={25} alt="hamburger menu icon" className="inline align-top"/> 
             </p>
             {!isHidden &&
             (<div ref={dropdownRef} className="absolute z-10 bg-white bg-opacity-100  w-[100%] inline-block leading-10 block xl:hidden left-0">

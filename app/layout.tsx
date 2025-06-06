@@ -24,7 +24,7 @@ export default function RootLayout({
         <SpeedInsights />
         <div className="h-[3px] w-[100%] bg-gray-500"> </div>
         <div className="flex flex-row justify-center m-[10px]">
-          <div className="xl:w-[80%] 2xl:w-[60%] w-[90%]">
+          <div className="xl:w-[80%] 2xl:w-[70%] w-[95%]">
             <div className="flex flex-row justify-between border-b border-gray-200 xl:pl-[35px] xl:pr-[35px] pr-[20px] p-[5px]">
               <h1 className="whitespace-nowrap font-mono font-bold text-xl text-left inline xl:ml-[1px] ml-[10px] ">
                 <Link href="/">Aditya Ambadipudi</Link>
