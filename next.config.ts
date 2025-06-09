@@ -32,6 +32,6 @@ const withMDX = createMDX({
     rehypePlugins: [rehypeKatex, [rehypeStarryNight, ], [rehypeImgSize, { dir: 'public'}], rehypeSlug],
     remarkPlugins: [remarkGfm, remarkFrontmatter, remarkMdxFrontmatter, remarkMath, remarkToc],
   },
-})
+});
 
 export default withMDX(nextConfig);

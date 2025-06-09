@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.adityaambadipudi.in
+
+# Sitemaps
+Sitemap: https://www.adityaambadipudi.in/sitemap.xml
