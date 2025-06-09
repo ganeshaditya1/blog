@@ -8,15 +8,23 @@ synopsis: "This is the first blog post in the series of blog posts that I intend
 
 For the majority of my career so far, I have worked as a fullstack engineer. I would say I have spent 95% of my time on the backend and 5% on the frontend. I can work my way around a frontend system. I know some basic concepts of React like components, hooks etc. If I am building a new API endpoint in the backend service, I can build a few components and a React page to consume the API and display the data to the user with very little hand holding.
 
-But what I lack is a deep understanding of how frontend systems work. In my head when I think of a frontend systems I think of a couple of HTML webpages that define the layout of the webpage. CSS to style the HTML webpages and Javascript/typescript files to make the webpages interactive. This was roughly how things were when I was in college in 2014. In the last decade or so, things have changed drastically. 
+But what I lack is a deep understanding of how frontend systems work. In my head when I think of a frontend systems I think of a couple of HTML webpages that define the layout of the webpage. CSS to style the HTML webpages and Javascript/typescript files to make the webpages interactive. 
 
-So I gave myself 2 weeks time to learn as much as I can about how frontend systems work. My goal was to learn the science behind frontend engineering, not just some APIs or frameworks or libraries. I wanted to develop a deeper understanding of what problems a particular tools/framework/library solves. What are the tradeoffs it makes. Why was that tool created. How did people solve these problems before this tool was invented, etc. I was trying to learn the computer science aspect of frontend engineering.
+So I decided I wanted to gain deeper knowledge of how frontend systems work so I gave myself 2 weeks time to learn as much as I can. My goal was to learn the science behind frontend engineering, not just some APIs or frameworks or libraries. I wanted to develop a deeper understanding of what problems a particular tools/framework/library solves. What are the tradeoffs it makes. Why was that tool created. How did people solve these problems before this tool was invented, etc. I was trying to learn the computer science aspect of frontend engineering.
 
-Having said that, here are my learnings. 
+Now the target audience for my post series is someone like me. A mostly backend engineer who has worked on Java/C++ who is occasionally tasked with implementing something in the frontend. If you are a NodeJS backend engineer you might not get a lot of value out of this post as you might already know a lot of things that I will be covering in these posts.
+
+Having said all of that, here are my learnings. 
 
 # Search engine rankings - The way websites get compared
 
-When you are building a website, you want it to rank higher in search rankings. That way you will get a lot of traffic to your site. Search engines have a really complicated way for scoring websites. Some of that information about how websites are ranked is public, a lot of it is secret. Obviously having good, unique, interesting content that uses a lot of keywords that people frequently search for on the internet helps your website score higher. The other important thing that helps your website rank higher is the user experience. As a developer you might not really have control over the content of your website. But you can ensure that your visitors have a good experience when they visit your website. Google has an article explaining what makes for a good user experience [here](https://developers.google.com/search/docs/appearance/page-experience)
+One of the main reasons the world of frontend engineering can seem so complicated is because one, you are shipping code to the user's browser on the fly. As soon as the user opens up your website, their browser starts downloading your code. And it is also starts downloading images, fonts and everything else as well. And it doesn't wait for everything to finish downloading. It starts rendering your website as soon as it has enough material. Which most likely means that just the `index.html` file. Two, you don't really have any control over the environment where you code runs. Maybe the browser where your code is running supports an ECMA script feature that you are using in your code. Or maybe it doesn't. As a backend engineer you don't have to worry about any of these things at all. Your backend service is ready to start serving traffic when you say it is ready to start serving traffic. And most of the time you can pick the environment where your service runs.
+
+You can obviously ignore both of these concerns completely. And you can say that as long as my code works for a subset of people on the internet I am happy. But the problem with that approach is that if only a subset of people on the internet are able to use your website and a significant chunk of users are not able to use your website, search engines are less likely to recommend your website to anyone.
+
+Ofcourse the way search engines rank websites is incredibly complicated. The content you put on your website probably plays a significant role in deciding the position of your website in search rankings. But assuming you and your competitor have equally good content and the visitors of your website have a bad experience and your competitors website works like a charm, guess which website will rank higher in Google search rankings? Obviously not yours.
+
+So ensuring that your clients have a good experience is of paramount importance. As a developer you might have no control over the content in your website, but you most definitely have a lot control over the user experience. But what makes for a good user experience you might ask? Google has an article explaining what makes for a good user experience [here](https://developers.google.com/search/docs/appearance/page-experience)
 
 There are some general heuristics that you can follow to ensure your users have a good experience like not overloading your website with ads for example. But the question of how many ads to display is quite subjective. A few more of these heuristics like this one are listed in the link above. In addition to these subjective heuristics, there are also some objective metrics that you can optimize for called the core web vitals. Different search engines might have different names for these metrics, but "core web vitals" is what Google calls them. Your website's core web vital score is composed of the following three metrics:
 
@@ -24,26 +32,22 @@ There are some general heuristics that you can follow to ensure your users have 
 - [Interaction To Next Paint (INP)](https://web.dev/articles/inp) This is an aggregate metric that measures how long it took for your website to respond to various user interactions. I.e. this metric measures how responsive your website is. Ideally this score should be less than 200 milliseconds
 - [Cumulative Layout Shift (CLS)](https://web.dev/articles/cls). This measures how stable your web page is. If your webpage is constantly loading fresh new data and the content is constantly shifting around, it makes for a bad user experience. A score on this metric less than 0.1 is considered desirable.
 
-Now you might be wondering how do these search engines measure these metrics? Well 66% of the internet users use Google Chrome according to [this website](https://gs.statcounter.com/browser-market-share/). So in Google's case at least, they are just watching people interact with your website on Google chrome and collecting these metrics live. So if 10% of your users who use Chrome have a bad experience, Google would know about it and they would give you a low score on core web vitals. Other search engines like Bing which is owned by Microsoft who also own Edge browser might be doing something similar to this. 
+Now you might be wondering how do these search engines measure these metrics? Well 66% of the internet users use Google Chrome according to [this website](https://gs.statcounter.com/browser-market-share/). So in Google's case at least, they are just watching people interact with your website on Google chrome and collecting these metrics live. Other search engines like Bing which is owned by Microsoft who also own Edge browser might be doing something similar to this. 
 
 So obviously if you want your website to rank higher in search rankings, you need to improve your score on these metrics. Google has a tool called [Lighthouse](https://developer.chrome.com/docs/lighthouse/) which is integrated into Chrome browser that you can use to measure your score against these metrics. Lighthouse gives you a scores, warnings and tips about other areas too that you need to focus on to improve your overall search engine rankings. Like for example if you are not serving all or some of your webpages via HTTPS, lighthouse will let you know. Even though this is not part of core web vitals, fixing these warnings will ensure that your website scores higher.
 
 ![Sample output from Lighthouse](/posts/exploring_frontend_tech_as_a_backend_eng_part1/Lighthouse.png)
 (Sample output from Lighthouse)
 
-Now you might be wondering why you should care about any of this. And how is any of this related to frontend tools or technologies that I was studying. The answer to the first question is that your website should load fast, should respond to user interactions as quickly as possible and your website should be stable and should not shift things around a lot after it has finished loading. These are not unreasonable expectations. These are the goals you should strive for, when you are building a website, whether or not some external service like Google or Bing is measuring how well you are doing on these expectations. 
-
-Secondly, now that we have established a criteria for measauring/quantifying the user experience on a website or rather Google has established the criteria for good user experience, we can start working towards building a good website. A lot of the modern tools and technologies that I will cover in these series of blogposts were designed to improve your core web vitals score.
+Now after reading all of this you might be thinking that building a good frontend is all about making sure Google or other search engines are happy with your website! But that's not the case at all. Ensuring that your webpage loads quickly, is responsive to user interactions, and the content on your webpage doesn't shift too much after it has finished loading which makes it look and feel unstable, are things that you should strive for irrespective of whether or not it gets your website ranked higher in search engine rankings. Your front end is just a software and optimizing for these metrics is a software engineering problem. And just like with any software engineering problem there is a lot of Computer Science theory that outline various options and their tradeoffs for tackling these problems. I am going to be exploring some of it in this series.
 
 # Transpilers - Babel, TSC, NextJS Compiler
 
-A transpiler is a source to source compiler. It takes code written in one language and converts it to code in another language. In the context of frontend engineering, transpilers are mostly used to convert Javascript code written in latest version of Ecma script or code that uses Javascript features that the target browser or any browser currently does not supports to older versions of javascript code that all the browsers can run. It has various other use cases that transpilers support that I will cover in this section.
+The first problem that we need to tackle is ensuring that your code can run anywhere. And that does not mean writing multiple versions of the same code that can run on all the browsers and browser versions that our clients use. Or checking the browser and browser version at each step before doing something on client side which will most likely slow our webpage down significantly. Instead we will write exactly one version of frontend code in whatever Ecma script version number we are comfortable in(ES6, ES7, ES2022, whatever) and transpile it down to the lowest Ecma script version that all of our clients are garuanteed to be able to run. For doing this we need a [transpiler](https://en.wikipedia.org/wiki/Source-to-source_compiler) A transpiler is a source to source compiler. It takes code written in one language and converts it to code in another language. 
 
 ## Babel
 
-I will start off with [Babel](https://babeljs.io/docs/) because it is the most well known transpiler out there. Most of the time, transpiler are never run manually, but instead they are invoked by Webpack or Turbopack as a part of the build process.
-
-Also if you are a NodeJs backend engineer, you might be already familiar with transpilers. I am a Java/C++ developer, so I am pretty new to JS/TS transpilers.
+There are various transpilers out there that are used in building frontend systems. I will start off with [Babel](https://babeljs.io/docs/). Most of the time, transpiler are never run manually, but instead they are invoked by Webpack or Turbopack as a part of the build process.
 
 To install Babel, create a new folder and run the following command:
 
@@ -72,7 +76,7 @@ This will generate the following code:
 });
 ~~~
 
-And this code will run even in older browsers that don't support ES2015. The difference between frontend engineering and backend engineering is that with backend, you can control the environment where your code runs. But when you are building a frontend you simply cannot control the environment. If even 10% of your users use an outdatted browser that doesn't support a JS feature that you are using in your source code, things will break for those users. And if things break, error messages are logged into console, your lighthouse score will suffer and consequently your search engine rankings as well.
+And this code will run even in older browsers that don't support ES2015.
 
 ### JSX
 
@@ -109,7 +113,7 @@ function TestJsxElement() {
 }
 ~~~
 
-And that my friends is how JSX code is able to run on browsers. When I first started working on a React project at work, I couldn't figure out how we were embedding HTML code directly into JS. I remember reading through React documentation and not getting a satisfactory answer. Now after reading about Babel and it's presets, it all makes sense to me now.
+And that my friends is how JSX code is able to run on browsers. When I first started working on a React project at work, I couldn't figure out how we were embedding HTML code directly into JS. It was only recently after I started reading about Babel and transpilers that I understood how JSX works in browsers.
 
 ### Multi-browser support
 
@@ -135,13 +139,13 @@ Another cool thing that you can do with Babel is to just specify a list of targe
 }
 ~~~~
 
-Since you own your website you might know what browsers your visitors are using. Once you create a file like this, you can transpile all of your JS code to the appropriate ES version that is supported by all the browsers. You don't have to manually create code for each browser version. Nor do you need to check if a particular browser's ES version supports the ES feature that you intend to use in your code base.
-
-This covers all of the famous transpiling features of Babel. There are presets available for transpiling typescript to ES script as well. All the examples, that I have shown here so far can be sumarized as Babel transforming newer JS syntax to older JS syntax.
+Since you own your website you might know what browsers your visitors are using. Once you create a file like this, you can transpile all of your JS code to the appropriate ES version that is supported by all the browsers.
 
 ### Polyfills
 
-Now what if you want to use a function or method or some library that was added to newer versions of ES but they are not supported in older versions of ES? It's not a matter of transforming syntax anymore. It's a matter of adding the missing code. That's when you need [Polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). They are basically like a library/module that you import into you code that will provide the missing code you need to run latest version of ES code on older browsers. Polyfills are not just for backporting missing code to older browsers. They fix broken implementations too. One thing to note about Polyfills is that it is important to import Polyfill at global scope and make sure it runs before anything else. They need to be the first thing that runs on your webpage. So they can patch all the problematic code.
+So far whatever I have shown you only involves transforming syntax in newer versions of Ecma script or JSX to older Ecma script syntax. But Babel can do something more than that.
+
+What if you want to use a function or method or some library that was added to newer versions of ES but that is not supported in older versions of ES? Then it's not a matter of transforming syntax anymore. It's a matter of adding the missing code. That's when you need [Polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). They are basically like a library/module that you import into you code that will provide the missing code you need to run latest version of ES code on older browsers. Polyfills are not just for backporting missing code to older browsers. They fix broken implementations too. One thing to note about Polyfills is that it is important to import Polyfill at global scope and make sure it runs before anything else. They need to be the first thing that runs on your webpage. So they can patch all the problematic code.
 
 The most famous example of code that needs polyfill is the following. Save it into a file called `promise.js`:
 
@@ -167,29 +171,29 @@ require("core-js/modules/es7.promise.finally.js");
 Promise.resolve().finally();
 ~~~
 
-As you can see, I have not specified a preset when invoking babel. It is possible to specify the polyfill option using babel-cli like I did for earlier examples. But it is much more simple to use a `babel.config.json` file and specify the preset and it's configuration options inside the config file. Use the config file I posted just a few paragraphs above this paragraph for this example to work(in the multibrowser support section). 
+And Babel added a require statement to your code that imports a js file that adds the missing functions necessary for your code to be able to run on older broswers.
+
+Also you might have noticed I have not specified a preset when invoking babel. It is possible to specify the polyfill option using babel-cli like I did for earlier examples. But it is more simple to use a `babel.config.json` file and specify the preset and it's configuration options inside the config file. Use the config file I posted just a few paragraphs above this paragraph for this example to work(in the multibrowser support section). 
 
 When you run this command, babel will automatically require a file from `core-js`. `core-js` is a collection of polyfills for supporting older browsers. Babel will exactly pull in the polyfill your code needs and won't import anything that your code doesn't need. This is because we have used the option `useBuiltIns: usage` option in the babel's present-env's config. 
 
 ## TSC and Nextjs compilers
 
-TSC is kind of similar to babel. It is primarily used to transpile Typescript code to Javascript code. You can use Babel and TSC together. Using Babel for transpiling and TSC for typechecking. TSC from what I read supports the entirety of typescript feature set. And Babel and it's presets don't support all of the typescript features. At the time of writing this article, I couldn't find the source article where I read this. Maybe this is no longer the case, hence the author of that article decided to delete it. I also remember reading somewhere that Babel and TSC don't generate the same identical output. Again I cannot find the source of this claim. TSC is maintained by the people who own Typescript. To ordinary folks like you and me, this probably doesn't mean much. But if I were to speculate TSC might receive latest typescript features faster than Babel and it's typescript presets. 
+TSC is kind of similar to babel. It is primarily used to transpile Typescript code to Javascript code. You can use Babel and TSC together. Using Babel for transpiling and TSC for typechecking. TSC from what I read supports the entirety of typescript feature set. And Babel and it's presets don't support all of the typescript features(I am not able to find where I read this). I also remember reading somewhere that Babel and TSC don't generate the same output(can't find the source of this as well). TSC is maintained by the people who own Typescript. What this might means is that TSC might support new features in TS faster than Babel.
 
 A major distinguishing factor between all of these transpilers is the speed at which they transpile. TSC was recently re-written in Go to speed it up. 
 
-Another compiler that is focused on speed is the NextJS compiler. NextJS is written in Rust. NextJS is quite an influential project in the world of React. They have produced a lot of tools and frameworks that improve React. But they kind of operate in a space where they have no competition I feel. And they are backed by a for-profit company Vercel. It is for this reason, I will only briefly talk about anything related to nextjs/Vercel in my blogs. I do anticipate that I will be writing a really big blog post on NextJS & Vercel in the coming weeks. A lot of discussion about the problems that frontend developers face would simply be incomplete without talking about NextJS and Vercel at length.
+Another compiler that is incredibly fast is the NextJS compiler. NextJS is written in Rust. NextJS is quite an influential project in the world of React. They have produced a lot of tools and frameworks that improve React. But they kind of operate in a space where they have no competition I feel. And they are backed by a for-profit company Vercel. It is for this reason, I will only briefly talk about anything related to nextjs/Vercel in my blogs. I do anticipate that I will be writing a really big blog post on NextJS & Vercel in the coming weeks. A lot of discussion about the problems that frontend developers face would simply be incomplete without talking about NextJS and Vercel at length.
 
 # Dependency management - npm, Yarn, pnpm
 
 So you have written some code using fancy new ES features. You managed to transpile it to older ES version code so even those clients who use antiquated browsers will be able to use your website. You shipped all the polyfills necessary to make sure your website works everywhere. What's the next thing you need? Libraries. 
 
-You need to install the libraries you need and ship them with your code. You need to include the exact version of the library your code needs. Your code needs to work on all environments where you ship it. To manage this problem effectively we use dependency management tools like npm, Yarn, pnpm. 
+What's the problem here you may ask. Just use `<script>` tags to import whatever libraries you need. There are numerous problems with this approach. Firstly if your dependency has a dependency and for whatever reason they are not shipping the dependency along with their code, the onus will be on you to ensure your dependency's dependency is satisfied. Secondly what if you have two dependencies and they both need the same library to work. It obviously is not a good idea to ship two copies of the same library. Because unless both the copies of the library are delievered to the client, they won't be able to run your code. Another problem that you might face is that one dependency might require a different version of the dependency that is incompatible with the version that your second dependency needs. All of these problems can be tackled with `<script>` tags but that would involve a lot of manual work and a lot of things can go wrong if you are not careful. A dependency management tools helps you automate a lot of this manual work.
 
-Back in 2014, when I was still in college people would use script tag to include external dependencies. The are plenty of reasons why that is a bad idea that I will not cover in this post. Essentially the industry has moved to a model where people use tools that are equivalent of Python's Pip to install and manage dependencies. They ship all the libraries they need in a bundle.
+So the core problem that we are trying to solve in this layer is that if we are given a dependency tree of our code and all the things that we need in our code e.g. `A -> B. B -> C. B -> D. And D -> E`. We want a flattened dependency structure like this: `[A B C D E]`. Where all the things that we need are listed in list like structure. And we want each of the libraries to be able to find the dependency they need in this structure. 
 
-So what problem are we solving in this layer? Basically if we are given a dependency tree e.g. `A -> B. B -> C. B -> D. And D -> E`. We want a flattened dependency structure like this: `[A B C D E]`. Where only the things that we need are listed. And we want each of the libraries to be able to find the dependency they need in this structure. As deceptively simple as this problem may seem, there are quite a few challenges that the tools I mentioned tackle those problems. The two obvious ones are minimal disk usage and fast builds.
-
-Basically we don't want the dependency management system to take up a lot of disk space. Nor do we want it to move a crap ton of files around, slowing down the build process. Finally we want the build process to be fast. Plenty of optimizations were made by each of the tools I mentioned in the title of this section. I will start with `npm` first. 
+As deceptively simple as this problem may seem, there are quite a few challenges that the tools I mentioned tackle. The two obvious ones are minimal disk usage and fast builds. Basically we don't want the dependency management system to take up a lot of disk space. Nor do we want it to move a crap ton of files around, slowing down the build process. Finally we want the build process to be fast.  
 
 ## NPM
 [npm](https://www.npmjs.com/) stands for `Node package manager`. To create a new npm project run the following command:
@@ -280,15 +284,13 @@ While this idea sounds revolutionary and amazing, Yarn PnP faces significant cha
 
 # Bundling tools - Webpack
 
-Now that we have all of our source code transpiled to an appropriate ES version. And we have also installed all the dependencies that our project needs via the dependency management tool of our choice. The next and final task that remains in our agenda is creating a deployable artifact. That contains everything we need like JS, CSS scripts, images, fonts and even the HTML files of our webpage.
+The two things that we have discussed so far are one, how to ensure your code can run everywhere. Two, how to ensure that your code has all the things it needs to run. Here we have also ensured that we are not shipping anything multiple times unnecessarily.
 
-Before I talk about how to build this deployable artifact and the importance of this artifact. I need to talk about `Modules`. I really thought of introducing modules at the very beginning of this blog post itself. However, from a narrative point of view, modules did not really fit into any of the sections preceding this one.
+The last and final problem that I will tackle in this post is the problem of breaking down your code and assets into multiple chunks. This is so that your browser or your code can download things as it needs. And it can also download multiple things in parallel. There is no point is shipping everything that you built as a single giant monolithic file that your browser has to spend several seconds downloading, before it can parse it and render it's contents. We want to send content to your client's browsers in smaller chunks that are enough to create an interface that the user can start interacting with quickly.
 
 ## Modules
 
-It might not surprise a lot of folks when I say this, even the younger folks who are still in their teens, that JS did not always have modules. JS was not really modular at all. Knowing how horrible JS was before ES6, it just seemed obvious that JS would lack such a major feature. But I still spent a significant amount of time verifying this. And it definitely seems like before ES6 there was no modularization possible with JS at all. Never the less, I will hold my tongue in case some Computer Science historians or extremely pedantic academic folks come along and prove me wrong.
-
-Before modules, you would import a JS file into your webpage using a script tag. Everything in that file, functions, variables and what not sat in the global scope. If your file needed another JS file, that file would have to be included using a script tag as well. All these JS files were essentially linked into a webpage via script tags. And everything in these script files resided in global scope.
+Before we talk about how to break our code down into chunks. We have to talk about modules in Javascript. This was a recent feature that was added to Javascript. Before modules, you would import a JS file into your webpage using a script tag. Everything in that file, functions, variables and what not sat in the global scope. If your file needed another JS file, that file would have to be included using a script tag as well. All these JS files were essentially linked into a webpage via script tags. And everything in these script files resided in global scope.
 
 Then came immediately invoked function expressions [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE). This kind of created a local scope. `(function() { var locally_scoped_variable = 0;})()`. 
 
@@ -296,7 +298,7 @@ Then came NodeJS which invented something called [CommonJS modules](https://node
 
 [AMD](https://requirejs.org/docs/whyamd.html#amd)(not advanced micro devices, but Asynchronous module definition) defined a format for modules as well. Using `define` and `require`.
 
-Then finally the concept of [modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) was formalized in 2016. 2 years after I graduated from college. The statements `import` and `export` were formally added to ES6 syntax. Now if you want to export something out of a JS file like a constant or a function you would use the `export` syntax and if you needed to import something you would use the `import` statement. Pretty straight forward. Anything with an export statement is immediately regarded as a module now.
+Then finally the concept of [modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) was formalized in 2016. The statements `import` and `export` were formally added to ES6 syntax. Now if you want to export something out of a JS file like a constant or a function you would use the `export` syntax and if you needed to import something you would use the `import` statement. Pretty straight forward. Anything with an export statement is immediately regarded as a module now.
 
 ## Webpack
 
@@ -518,7 +520,7 @@ And each time you update a file or something, it will automatically recompile th
 
 ### Code splitting
 
-This feature is what got me interested in Webpack and this feature is basically the reason I started this blog post series. Basically what [Code splitting](https://webpack.js.org/guides/code-splitting/) means is to split up your code into more bundles and thus have them emitted as separate bundles, so you could load them parallely or load them on demand or load them in whatever way you think would best utilize the available network bandwith and allows you to quickly get things infront of your users. You can do that with Webpack. 
+This feature is the most important feature of Webpack. And I would say this feature is the reason Webpack was created. Basically what [Code splitting](https://webpack.js.org/guides/code-splitting/) means is to split up your code into more bundles and thus have them emitted as separate bundles, so you could load them parallely or load them on demand or load them in whatever way you think would best utilize the available network bandwith and allows you to quickly get things infront of your users. You can do that with Webpack. 
 
 There are three ways to do this:
 
