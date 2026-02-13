@@ -8,7 +8,7 @@ export default function PostSynopsis({ post }: { post: Post }) {
             <h1 className="mb-[10px]">
                 <Link href={`posts/${post.slug}`}>{ post.title }</Link>
             </h1>
-            <div className="flex flex-row flex-wrap gap-3 mb-[40px]">
+            <div className="flex flex-row flex-wrap gap-3 mb-[20px] mt-[10px]">
                 {post.tags.map((tag: string) => (            
                     <Tag tagText={tag} key={tag} />
                 ))}

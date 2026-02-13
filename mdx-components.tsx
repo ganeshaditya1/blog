@@ -12,12 +12,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 
     // Add styling to headings
     h1: ({ id, children }) => (
-      <h1 id={id} className="md:text-3xl text-2xl mt-[10px] mb-[10px]">
+      <h1 id={id} className="md:text-3xl text-2xl mt-[10px] mb-[15px]">
         {children}
       </h1>
     ),
     h2: ({ id, children }) => (
-      <h2 id={id} className="md:text-2xl text-xl mt-[10px] mb-[10px]">
+      <h2 id={id} className="md:text-2xl text-xl mt-[10px] mb-[15px]">
         {children}
       </h2>
     ),
@@ -25,7 +25,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <a className="underline" href={href}>{children}</a>
     ),
     p: ({ children }) => (
-      <p style={{ wordSpacing: '0.07em', lineHeight: '1.5em' }}> {children} </p>
+      <p style={{ wordSpacing: '0.08em', lineHeight: '1.55em' }}> {children} </p>
     ),
     ...components,
   }
