@@ -3,13 +3,14 @@ import Tag from '../tag';
 
 export default function Post({ postData }: { postData: PostData }) {
     return <div>            
-            <h2 className="font-thin text-sm underline underline-offset-4 decoration-gray-100 text-gray-600">{ postData.prettyCreationDate }</h2>
-            <h1 className="text-4xl mb-[10px] ">{ postData.title }</h1>
-            <div className="flex flex-row flex-wrap gap-3 mb-[20px] mt-[10px]">
+            <h1 className="text-4xl mb-[5px] mt-[20px] font-normal">{ postData.title }</h1>
+            <div className="flex flex-row flex-wrap gap-3 mb-[7px]">
             {postData.tags.map((tag: string) => (            
                 <Tag tagText={tag} key={tag} />
             ))}
             </div>
-            <div>{postData.Content}</div>
+            
+            <h2 className="font-thin italic text-sm text-gray-600 mb-[15px] text-right">{ postData.prettyCreationDate }</h2>
+            <div className="text-gray-700 leading-15">{postData.Content}</div>
         </div>;
 }

@@ -1,3 +1,3 @@
 export default function tag({ tagText }: { tagText: string }) {
-    return <span className="bg-neutral-100 pl-[6px] pr-[6px] p-[2px] whitespace-nowrap rounded-sm ">{ tagText }</span>;
+    return <span className="text-gray-700 p-[2px] whitespace-nowrap rounded-sm underline underline-offset-[4px] decoration-dashed decoration-gray-200">{ tagText }</span>;
 }
