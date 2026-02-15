@@ -30,8 +30,8 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         <div className="flex flex-row justify-center mt-[40px]">
-          <div className="xl:w-[70%] 2xl:w-[60%] w-[95%]">
-            <div className="flex flex-row justify-between items-center xl:pl-[15px] xl:pr-[15px] pr-[15px] mb-[20px]">
+          <div className="xl:w-[70%] 2xl:w-[60%] w-[85%]">
+            <div className="flex flex-row justify-between items-baseline xl:pl-[15px] xl:pr-[15px] pr-[15px] mb-[20px]">
               <h1 className={`whitespace-nowrap text-xl text-left inline xl:ml-[1px] pb-[0px] ml-[10px] ${robotoMono.className}`}>
                 <Link href="/">Aditya Ambadipudi</Link>
               </h1>
